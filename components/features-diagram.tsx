@@ -1,0 +1,242 @@
+"use client"
+
+import { useEffect, useRef } from "react"
+
+export default function FeaturesDiagram() {
+  const canvasRef = useRef<HTMLCanvasElement>(null)
+
+  useEffect(() => {
+    const canvas = canvasRef.current
+    if (!canvas) return
+
+    const ctx = canvas.getContext("2d")
+    if (!ctx) return
+
+    // キャンバスの解像度を設定
+    const dpr = window.devicePixelRatio || 1
+    const rect = canvas.getBoundingClientRect()
+
+    // 正方形のキャンバスにするための調整
+    const size = Math.min(rect.width, rect.height)
+    canvas.width = size * dpr
+    canvas.height = size * dpr
+    ctx.scale(dpr, dpr)
+
+    // 背景を透明に
+    ctx.clearRect(0, 0, size, size)
+
+    // 図解を描画
+    drawDiagram(ctx, size, size)
+  }, [])
+
+  // 図解を描画する関数
+  const drawDiagram = (ctx: CanvasRenderingContext2D, width: number, height: number) => {
+    // 高級感のあるカラーパレット
+    const colors = {
+      gold: "#d4af37",
+      lightGold: "#f9e3b1",
+      darkGold: "#9e7c23",
+      black: "#000000",
+      darkGray: "#1a1a1a",
+      lightGray: "#555555",
+    }
+
+    // 中央の円（Minerva）
+    const centerX = width / 2
+    const centerY = height / 2
+    // 正円になるように半径を計算
+    const centerRadius = Math.min(width, height) * 0.15
+
+    // 中央の円のグラデーション
+    const centerGradient = ctx.createRadialGradient(centerX, centerY, 0, centerX, centerY, centerRadius)
+    centerGradient.addColorStop(0, colors.lightGold)
+    centerGradient.addColorStop(0.7, colors.gold)
+    centerGradient.addColorStop(1, colors.darkGold)
+
+    // 中央の円を描画
+    ctx.beginPath()
+    ctx.arc(centerX, centerY, centerRadius, 0, Math.PI * 2)
+    ctx.fillStyle = centerGradient
+    ctx.fill()
+    ctx.strokeStyle = colors.darkGold
+    ctx.lineWidth = 2
+    ctx.stroke()
+
+    // 中央のテキスト
+    ctx.fillStyle = "#000"
+    ctx.font = "bold 18px 'Noto Serif JP', serif" // 16pxから18pxに変更
+    ctx.textAlign = "center"
+    ctx.textBaseline = "middle"
+    ctx.fillText("Minerva", centerX, centerY)
+    ctx.font = "14px 'Noto Serif JP', serif" // 12pxから14pxに変更
+    ctx.fillText("学習メソッド", centerX, centerY + 22) // 位置も少し調整
+
+    // 周囲の特徴（5つ）
+    const features = [
+      { name: "マンツーマン\nサポート", icon: "Users" },
+      { name: "AIを活用した\n学習", icon: "Brain" },
+      { name: "オリジナル\n教材", icon: "BookOpen" },
+      { name: "人に教える\n学習法", icon: "GraduationCap" },
+      { name: "1冊の参考書を\n完璧にする", icon: "BookMarked" },
+    ]
+
+    // 正円になるように半径を計算
+    const radius = Math.min(width, height) * 0.35
+    features.forEach((feature, i) => {
+      const angle = (Math.PI * 2 * i) / features.length - Math.PI / 2
+      const x = centerX + radius * Math.cos(angle)
+      const y = centerY + radius * Math.sin(angle)
+
+      // 特徴の円のグラデーション
+      const featureGradient = ctx.createRadialGradient(x, y, 0, x, y, centerRadius * 0.8)
+      featureGradient.addColorStop(0, "rgba(30, 30, 30, 0.9)")
+      featureGradient.addColorStop(1, "rgba(10, 10, 10, 0.9)")
+
+      // 特徴の円を描画
+      ctx.beginPath()
+      ctx.arc(x, y, centerRadius * 0.8, 0, Math.PI * 2)
+      ctx.fillStyle = featureGradient
+      ctx.fill()
+      ctx.strokeStyle = colors.gold
+      ctx.lineWidth = 1.5
+      ctx.stroke()
+
+      // 中央から特徴への線
+      ctx.beginPath()
+      ctx.moveTo(centerX + centerRadius * Math.cos(angle), centerY + centerRadius * Math.sin(angle))
+      ctx.lineTo(x - centerRadius * 0.8 * Math.cos(angle), y - centerRadius * 0.8 * Math.sin(angle))
+
+      // 線のグラデーション
+      const lineGradient = ctx.createLinearGradient(
+        centerX + centerRadius * Math.cos(angle),
+        centerY + centerRadius * Math.sin(angle),
+        x - centerRadius * 0.8 * Math.cos(angle),
+        y - centerRadius * 0.8 * Math.sin(angle),
+      )
+      lineGradient.addColorStop(0, colors.gold)
+      lineGradient.addColorStop(1, "rgba(212, 175, 55, 0.3)")
+
+      ctx.strokeStyle = lineGradient
+      ctx.lineWidth = 1.5
+      ctx.stroke()
+
+      // 特徴のテキスト
+      ctx.fillStyle = "#fff"
+      ctx.font = "bold 14px 'Noto Serif JP', serif" // 12pxから14pxに変更
+      ctx.textAlign = "center"
+      ctx.textBaseline = "middle"
+
+      // 改行対応
+      const lines = feature.name.split("\n")
+      lines.forEach((line, index) => {
+        const lineY = y + (index - (lines.length - 1) / 2) * 18 // 行間も16pxから18pxに調整
+        ctx.fillText(line, x, lineY)
+      })
+    })
+
+    // 効果を示す外側の円
+    const outerRadius = Math.min(width, height) * 0.45
+    ctx.beginPath()
+    ctx.arc(centerX, centerY, outerRadius, 0, Math.PI * 2)
+    ctx.strokeStyle = "rgba(212, 175, 55, 0.2)"
+    ctx.lineWidth = 15
+    ctx.stroke()
+
+    // 効果テキストの描画部分を削除（ラベルを消す）
+  }
+
+  // 角丸の長方形を描画するヘルパー関数
+  function roundRect(
+    ctx: CanvasRenderingContext2D,
+    x: number,
+    y: number,
+    width: number,
+    height: number,
+    radius: number,
+  ) {
+    ctx.beginPath()
+    ctx.moveTo(x + radius, y)
+    ctx.lineTo(x + width - radius, y)
+    ctx.quadraticCurveTo(x + width, y, x + width, y + radius)
+    ctx.lineTo(x + width, y + height - radius)
+    ctx.quadraticCurveTo(x + width, y + height, x + width - radius, y + height)
+    ctx.lineTo(x + radius, y + height)
+    ctx.quadraticCurveTo(x, y + height, x, y + height - radius)
+    ctx.lineTo(x, y + radius)
+    ctx.quadraticCurveTo(x, y, x + radius, y)
+    ctx.closePath()
+  }
+
+  return (
+    <div className="w-full max-w-5xl mx-auto mt-12 mb-8">
+      <div className="bg-black/70 backdrop-blur-sm border border-gray-800 rounded-lg p-4 md:p-6 overflow-hidden shadow-lg shadow-black/50">
+        <h3 className="text-xl font-bold mb-6 text-center">
+          <span className="gold-text-luxe">Minervaの学習メソッド図解</span>
+        </h3>
+
+        <div className="flex flex-col lg:flex-row gap-8 items-center">
+          {/* 図解部分 */}
+          <div className="relative lg:w-1/2">
+            <canvas ref={canvasRef} className="w-full mx-auto" style={{ height: "500px" }} />
+          </div>
+
+          {/* 表部分 */}
+          <div className="lg:w-1/2">
+            <div className="overflow-x-auto">
+              <table className="w-full border-collapse">
+                <thead>
+                  <tr className="border-b border-gray-800">
+                    <th className="py-3 px-4 text-left text-luxe-light">特徴</th>
+                    <th className="py-3 px-4 text-left text-luxe-light">得られるもの</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr className="border-b border-gray-800">
+                    <td className="py-3 px-4 font-medium">マンツーマンサポート</td>
+                    <td className="py-3 px-4">
+                      <span className="text-luxe">効率的な学習</span> - 一人ひとりの理解度に
+                      <br />
+                      合わせた指導で学習効率が飛躍的に向上します
+                    </td>
+                  </tr>
+                  <tr className="border-b border-gray-800">
+                    <td className="py-3 px-4 font-medium">AIを活用した学習</td>
+                    <td className="py-3 px-4">
+                      <span className="text-luxe">勉強を好きになる</span> -
+                      最新技術で学習の進捗を可視化し、達成感を得られます
+                    </td>
+                  </tr>
+                  <tr className="border-b border-gray-800">
+                    <td className="py-3 px-4 font-medium">オリジナル教材</td>
+                    <td className="py-3 px-4">
+                      <span className="text-luxe">理解の深化</span> -
+                      本質を捉えた教材で、単なる暗記ではなく真の理解が得られます
+                    </td>
+                  </tr>
+                  <tr className="border-b border-gray-800">
+                    <td className="py-3 px-4 font-medium">人に教える学習法</td>
+                    <td className="py-3 px-4">
+                      <span className="text-luxe">自ら学ぶ力</span> -
+                      教えることで知識が定着し、自分で考える力が身につきます
+                    </td>
+                  </tr>
+                  <tr className="border-b border-gray-800">
+                    <td className="py-3 px-4 font-medium">1冊の参考書を完璧にする</td>
+                    <td className="py-3 px-4">
+                      <span className="text-luxe">学習習慣の定着</span> -
+                      継続的な取り組みで、確実な学力と学習習慣が身につきます
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <div className="mt-4 text-center text-sm text-gray-400">
+          ※ Minervaの特徴的な学習メソッドが相互に作用し、効果的な学習環境を実現します
+        </div>
+      </div>
+    </div>
+  )
+}
