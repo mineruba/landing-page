@@ -31,6 +31,18 @@ export default function FeaturesDiagram() {
 
   // 図解を描画する関数
   const drawDiagram = (ctx: CanvasRenderingContext2D, width: number, height: number) => {
+    // スマホかどうかを判定
+    const isMobile = width < 640
+
+    // フォントサイズをレスポンシブに調整
+    const titleFontSize = isMobile ? "14px" : "18px"
+    const textFontSize = isMobile ? "12px" : "14px"
+
+    // 中央の円の半径を画面サイズに応じて調整
+    const centerRadius = Math.min(width, height) * (isMobile ? 0.12 : 0.15)
+
+    // 周囲の円の配置も調整
+    const radius = Math.min(width, height) * (isMobile ? 0.28 : 0.35)
     // 高級感のあるカラーパレット
     const colors = {
       gold: "#d4af37",
@@ -45,7 +57,7 @@ export default function FeaturesDiagram() {
     const centerX = width / 2
     const centerY = height / 2
     // 正円になるように半径を計算
-    const centerRadius = Math.min(width, height) * 0.15
+    // const centerRadius = Math.min(width, height) * 0.15
 
     // 中央の円のグラデーション
     const centerGradient = ctx.createRadialGradient(centerX, centerY, 0, centerX, centerY, centerRadius)
@@ -64,11 +76,11 @@ export default function FeaturesDiagram() {
 
     // 中央のテキスト
     ctx.fillStyle = "#000"
-    ctx.font = "bold 18px 'Noto Serif JP', serif" // 16pxから18pxに変更
+    ctx.font = `bold ${titleFontSize} 'Noto Serif JP', serif` // 16pxから18pxに変更
     ctx.textAlign = "center"
     ctx.textBaseline = "middle"
     ctx.fillText("Minerva", centerX, centerY)
-    ctx.font = "14px 'Noto Serif JP', serif" // 12pxから14pxに変更
+    ctx.font = `${textFontSize} 'Noto Serif JP', serif` // 12pxから14pxに変更
     ctx.fillText("学習メソッド", centerX, centerY + 22) // 位置も少し調整
 
     // 周囲の特徴（5つ）
@@ -81,7 +93,7 @@ export default function FeaturesDiagram() {
     ]
 
     // 正円になるように半径を計算
-    const radius = Math.min(width, height) * 0.35
+    // const radius = Math.min(width, height) * 0.35
     features.forEach((feature, i) => {
       const angle = (Math.PI * 2 * i) / features.length - Math.PI / 2
       const x = centerX + radius * Math.cos(angle)
@@ -122,7 +134,7 @@ export default function FeaturesDiagram() {
 
       // 特徴のテキスト
       ctx.fillStyle = "#fff"
-      ctx.font = "bold 14px 'Noto Serif JP', serif" // 12pxから14pxに変更
+      ctx.font = `bold ${textFontSize} 'Noto Serif JP', serif` // 12pxから14pxに変更
       ctx.textAlign = "center"
       ctx.textBaseline = "middle"
 
@@ -174,10 +186,10 @@ export default function FeaturesDiagram() {
           <span className="gold-text-luxe">Minervaの学習メソッド図解</span>
         </h3>
 
-        <div className="flex flex-col lg:flex-row gap-8 items-center">
+        <div className="flex flex-col lg:flex-row gap-6 lg:gap-8 items-center">
           {/* 図解部分 */}
-          <div className="relative lg:w-1/2">
-            <canvas ref={canvasRef} className="w-full mx-auto" style={{ height: "500px" }} />
+          <div className="relative w-full lg:w-1/2">
+            <canvas ref={canvasRef} className="w-full mx-auto h-[300px] md:h-[400px] lg:h-[500px]" />
           </div>
 
           {/* 表部分 */}

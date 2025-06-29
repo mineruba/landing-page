@@ -1,9 +1,27 @@
 "use client"
 
-import { useEffect, useRef } from "react"
+import { useEffect, useRef, useState } from "react"
 
 export default function DailySchedule() {
   const canvasRef = useRef<HTMLCanvasElement>(null)
+  const [canvasHeight, setCanvasHeight] = useState("900px")
+
+  useEffect(() => {
+    const updateHeight = () => {
+      if (window.innerWidth < 640) {
+        setCanvasHeight("600px") // スマホで高さを削減
+      } else if (window.innerWidth < 1024) {
+        setCanvasHeight("750px") // タブレットで中間の高さ
+      } else {
+        setCanvasHeight("900px") // PC表示
+      }
+    }
+
+    updateHeight()
+    window.addEventListener("resize", updateHeight)
+
+    return () => window.removeEventListener("resize", updateHeight)
+  }, [])
 
   useEffect(() => {
     const canvas = canvasRef.current
@@ -502,10 +520,10 @@ export default function DailySchedule() {
   }
 
   return (
-    <section className="py-16 md:py-20" id="daily-schedule">
+    <section className="py-10 sm:py-16 md:py-20" id="daily-schedule">
       <div className="container mx-auto px-4">
         <div className="max-w-3xl mx-auto text-center mb-10">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4 flex items-center justify-center">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 flex items-center justify-center">
             <span className="text-[#D4AF37] mr-2">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <circle cx="12" cy="12" r="11" stroke="#D4AF37" strokeWidth="2" />
@@ -521,7 +539,7 @@ export default function DailySchedule() {
             <span className="gold-text-luxe">毎日の学習を継続するためにサポートします</span>
           </h2>
           <div className="w-20 h-1 bg-gold-gradient mx-auto mb-8"></div>
-          <p className="text-lg md:text-xl leading-relaxed">
+          <p className="text-base sm:text-lg md:text-xl leading-relaxed">
             大学受験の成功には、いかに多くの学習時間を確保し、継続して学習をすることが重要です。Minervaでは
             <span className="text-luxe">あなたの生活習慣にまで踏み込んだ緻密な学習スケジュール</span>を立て、
             <span className="text-luxe">どんな人でも"サボらせない"コーチング</span>を提供します。
@@ -529,19 +547,19 @@ export default function DailySchedule() {
           </p>
         </div>
 
-        <div className="bg-black/70 backdrop-blur-sm border border-gray-800 rounded-lg p-4 md:p-6 overflow-hidden max-w-5xl mx-auto shadow-lg shadow-black/50">
-          <h3 className="text-xl font-bold mb-6 text-center flex items-center justify-center">
+        <div className="bg-black/70 backdrop-blur-sm border border-gray-800 rounded-lg p-3 sm:p-4 md:p-6 overflow-hidden max-w-5xl mx-auto shadow-lg shadow-black/50">
+          <h3 className="text-lg sm:text-xl font-bold mb-6 text-center flex items-center justify-center">
             <span className="w-6 h-0.5 bg-[#D4AF37] mr-2"></span>
             <span className="gold-text-luxe">1日の学習スケジュール例</span>
           </h3>
 
           <div className="relative max-w-3xl mx-auto">
-            <canvas ref={canvasRef} className="w-full mx-auto" style={{ height: "900px", maxWidth: "100%" }} />
+            <canvas ref={canvasRef} className="w-full mx-auto" style={{ height: canvasHeight, maxWidth: "100%" }} />
           </div>
         </div>
 
         <div className="mt-8 text-center max-w-3xl mx-auto">
-          <p className="text-lg leading-relaxed">
+          <p className="text-base sm:text-lg leading-relaxed">
             Minervaでは、<span className="text-luxe">あなたの生活リズムに合わせた学習計画</span>を提案します。
             忙しい日々の中でも確実に学習時間を確保し、効率的に学習を進めることができます。 また、
             <span className="text-luxe">AIを活用した学習管理システム</span>により、

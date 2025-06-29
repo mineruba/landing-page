@@ -11,18 +11,18 @@ export default function Problems() {
   ]
 
   return (
-    <section className="py-20 md:py-28 bg-black/90" id="problems">
+    <section className="py-12 sm:py-20 md:py-28 bg-black/90" id="problems">
       <div className="container mx-auto px-4">
         <div className="max-w-3xl mx-auto text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold mb-8">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-8">
             <span className="gold-text-luxe">みなさんはこんなお悩みありませんか？</span>
           </h2>
         </div>
 
-        <div className="flex flex-col md:flex-row items-center max-w-5xl mx-auto mb-12">
+        <div className="flex flex-col lg:flex-row items-center max-w-5xl mx-auto mb-12">
           {/* 悩む学生のイラスト - 左側 */}
-          <div className="md:w-1/3 mb-8 md:mb-0">
-            <div className="relative mx-auto w-64 h-64 flex items-center justify-center bg-gradient-to-b from-black to-gray-900 rounded-lg p-6 border border-luxe/30 shadow-lg shadow-luxe/20">
+          <div className="lg:w-1/3 mb-8 lg:mb-0">
+            <div className="relative mx-auto w-48 h-48 sm:w-56 sm:h-56 md:w-64 md:h-64 flex items-center justify-center bg-gradient-to-b from-black to-gray-900 rounded-lg p-6 border border-luxe/30 shadow-lg shadow-luxe/20">
               <div className="absolute inset-0 rounded-lg overflow-hidden">
                 <div className="absolute inset-0 bg-gradient-to-br from-luxe-dark/10 to-black/30"></div>
               </div>
@@ -36,19 +36,19 @@ export default function Problems() {
           </div>
 
           {/* 悩みリスト - 右側 */}
-          <div className="md:w-2/3">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="lg:w-2/3">
+            <div className="grid grid-cols-1 gap-4 sm:gap-6">
               {problems.map((problem, index) => (
                 <div
                   key={index}
-                  className="bg-gradient-to-b from-black to-luxe-dark/10 border border-luxe/30 p-6 rounded-lg flex items-start shadow-lg shadow-luxe/10"
+                  className="bg-gradient-to-b from-black to-luxe-dark/10 border border-luxe/30 p-4 sm:p-5 md:p-6 rounded-lg flex items-start shadow-lg shadow-luxe/10"
                 >
                   <div className="mr-4 mt-1">
                     <div className="w-8 h-8 rounded-full bg-gradient-to-br from-luxe-light via-luxe to-luxe-dark flex items-center justify-center">
                       <X className="w-4 h-4 text-black" />
                     </div>
                   </div>
-                  <p className="text-lg">{problem}</p>
+                  <p className="text-base sm:text-lg">{problem}</p>
                 </div>
               ))}
             </div>

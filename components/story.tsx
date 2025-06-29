@@ -1,6 +1,6 @@
 export default function Story() {
   return (
-    <section className="py-20 md:py-28 bg-black/90" id="story">
+    <section className="py-12 sm:py-20 md:py-28 bg-black/90" id="story">
       <div className="container mx-auto px-4">
         <div className="max-w-3xl mx-auto text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">
@@ -9,13 +9,15 @@ export default function Story() {
         </div>
 
         <div className="max-w-4xl mx-auto">
-          <div className="bg-gradient-to-b from-black to-luxe-dark/10 border border-luxe/30 p-8 md:p-12 rounded-lg shadow-lg shadow-luxe/10">
-            <h3 className="text-2xl md:text-3xl font-bold mb-8 text-center">
+          <div className="bg-gradient-to-b from-black to-luxe-dark/10 border border-luxe/30 p-4 sm:p-6 md:p-8 lg:p-12 rounded-lg shadow-lg shadow-luxe/10">
+            <h3 className="text-xl sm:text-2xl md:text-3xl font-bold mb-8 text-center">
               <span className="gold-text-luxe">【塾代表の原点】</span>
-              <span className="block mt-2 text-xl md:text-2xl">全ては"勉強ができなかった自分"への復讐から始まった</span>
+              <span className="block mt-2 text-lg sm:text-xl md:text-2xl">
+                全ては"勉強ができなかった自分"への復讐から始まった
+              </span>
             </h3>
 
-            <div className="space-y-6 text-lg leading-relaxed">
+            <div className="space-y-6 text-base sm:text-lg leading-relaxed">
               <p>
                 私が慶應大学を目指したのは、高校3年生の夏。
                 <br />
@@ -50,8 +52,8 @@ export default function Story() {
                 そのとき、横で黙って聞いていた両親の表情を今でも忘れられません。
               </p>
 
-              <div className="py-4 px-6 bg-black/50 border-l-4 border-luxe my-8">
-                <p className="text-xl italic text-luxe-light">
+              <div className="py-3 px-4 sm:py-4 sm:px-6 bg-black/50 border-l-4 border-luxe my-8">
+                <p className="text-lg sm:text-xl italic text-luxe-light">
                   「申し訳ない」
                   <br />
                   「悔しい」
@@ -132,7 +134,7 @@ export default function Story() {
                   <br />
                   そんなふうに思っていた昔の自分に、私は言ってやりたい。
                 </p>
-                <p className="text-2xl font-bold mt-4 gold-text-luxe">
+                <p className="text-xl sm:text-2xl font-bold mt-4 gold-text-luxe">
                   「お前は大丈夫。勉強法を変えれば、人は変われる」
                 </p>
               </div>

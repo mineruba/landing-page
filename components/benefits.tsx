@@ -2,7 +2,7 @@ import { Crown } from "lucide-react"
 
 export default function Benefits() {
   return (
-    <section className="py-20 md:py-28 bg-black/80" id="benefits">
+    <section className="py-12 sm:py-20 md:py-28 bg-black/80" id="benefits">
       <div className="container mx-auto px-4">
         {/* ヘッダー部分 */}
         <div className="max-w-3xl mx-auto text-center mb-16 relative">
@@ -12,11 +12,11 @@ export default function Benefits() {
             <span className="inline-block w-8 h-8 mb-4">
               <Crown className="w-full h-full text-luxe" />
             </span>
-            <h2 className="text-3xl md:text-5xl font-bold mb-4">
+            <h2 className="text-2xl sm:text-3xl md:text-5xl font-bold mb-4">
               <span className="gold-text-luxe">限定特典</span>
             </h2>
             <div className="w-20 h-1 bg-gold-gradient mx-auto mb-8"></div>
-            <p className="text-lg md:text-xl leading-relaxed">
+            <p className="text-base sm:text-lg md:text-xl leading-relaxed">
               <span className="text-luxe-light">Minerva生だけが享受できる</span>特別な特典をご用意しています
             </p>
           </div>
@@ -33,16 +33,18 @@ export default function Benefits() {
           {/* 通常の特典項目 */}
           <div className="grid grid-cols-1 gap-10">
             {/* 不定期のオフ会の開催 */}
-            <div className="bg-gradient-to-b from-black to-luxe-dark/20 border border-luxe/30 p-8 rounded-lg shadow-lg">
+            <div className="bg-gradient-to-b from-black to-luxe-dark/20 border border-luxe/30 p-4 sm:p-6 md:p-8 rounded-lg shadow-lg">
               <div className="flex flex-col gap-6">
                 <div className="flex items-center w-full mb-4">
-                  <div className="w-16 h-16 rounded-full bg-gradient-to-br from-luxe-light via-luxe to-luxe-dark flex items-center justify-center mr-4 flex-shrink-0">
+                  <div className="w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 rounded-full bg-gradient-to-br from-luxe-light via-luxe to-luxe-dark flex items-center justify-center mr-4 flex-shrink-0">
                     <span className="text-black text-2xl font-bold">1</span>
                   </div>
-                  <h3 className="text-2xl font-semibold text-luxe-light flex-grow">不定期のオフ会の開催</h3>
+                  <h3 className="text-lg sm:text-xl md:text-2xl font-semibold text-luxe-light flex-grow">
+                    不定期のオフ会の開催
+                  </h3>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                <div className="flex flex-col gap-4 sm:gap-6 lg:grid lg:grid-cols-2 lg:gap-8 items-center">
                   <p className="text-gray-300 text-lg">
                     オンラインだけでなく、実際に会って交流できるオフ会を定期的に開催。
                     同じ目標を持つ仲間と直接会うことで、モチベーションアップにつながります。
@@ -59,16 +61,18 @@ export default function Benefits() {
             </div>
 
             {/* 受講生限定のライブ配信 */}
-            <div className="bg-gradient-to-b from-black to-luxe-dark/20 border border-luxe/30 p-8 rounded-lg shadow-lg">
+            <div className="bg-gradient-to-b from-black to-luxe-dark/20 border border-luxe/30 p-4 sm:p-6 md:p-8 rounded-lg shadow-lg">
               <div className="flex flex-col gap-6">
                 <div className="flex items-center w-full mb-4">
-                  <div className="w-16 h-16 rounded-full bg-gradient-to-br from-luxe-light via-luxe to-luxe-dark flex items-center justify-center mr-4 flex-shrink-0">
+                  <div className="w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 rounded-full bg-gradient-to-br from-luxe-light via-luxe to-luxe-dark flex items-center justify-center mr-4 flex-shrink-0">
                     <span className="text-black text-2xl font-bold">2</span>
                   </div>
-                  <h3 className="text-2xl font-semibold text-luxe-light flex-grow">受講生限定のライブ配信</h3>
+                  <h3 className="text-lg sm:text-xl md:text-2xl font-semibold text-luxe-light flex-grow">
+                    受講生限定のライブ配信
+                  </h3>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                <div className="flex flex-col gap-4 sm:gap-6 lg:grid lg:grid-cols-2 lg:gap-8 items-center">
                   <p className="text-gray-300 text-lg">
                     試験直前対策や特別講座など、受講生限定のライブ配信を実施。
                     時期に合わせた効果的な学習方法を提供します。
@@ -85,18 +89,18 @@ export default function Benefits() {
             </div>
 
             {/* 永年無料の専用サイトの最新情報のアクセス */}
-            <div className="bg-gradient-to-b from-black to-luxe-dark/20 border border-luxe/30 p-8 rounded-lg shadow-lg">
+            <div className="bg-gradient-to-b from-black to-luxe-dark/20 border border-luxe/30 p-4 sm:p-6 md:p-8 rounded-lg shadow-lg">
               <div className="flex flex-col gap-6">
                 <div className="flex items-center w-full mb-4">
-                  <div className="w-16 h-16 rounded-full bg-gradient-to-br from-luxe-light via-luxe to-luxe-dark flex items-center justify-center mr-4 flex-shrink-0">
+                  <div className="w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 rounded-full bg-gradient-to-br from-luxe-light via-luxe to-luxe-dark flex items-center justify-center mr-4 flex-shrink-0">
                     <span className="text-black text-2xl font-bold">3</span>
                   </div>
-                  <h3 className="text-2xl font-semibold text-luxe-light flex-grow">
+                  <h3 className="text-lg sm:text-xl md:text-2xl font-semibold text-luxe-light flex-grow">
                     永年無料の専用サイトの最新情報のアクセス
                   </h3>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                <div className="flex flex-col gap-4 sm:gap-6 lg:grid lg:grid-cols-2 lg:gap-8 items-center">
                   <p className="text-gray-300 text-lg">
                     卒業後も専用サイトの最新情報にアクセス可能。 学習コンテンツや知識を常にアップデートできます。
                   </p>
@@ -112,18 +116,18 @@ export default function Benefits() {
             </div>
 
             {/* 永年無料のオンライン自習室の開放とChatworkでの個別サポート */}
-            <div className="bg-gradient-to-b from-black to-luxe-dark/20 border border-luxe/30 p-8 rounded-lg shadow-lg">
+            <div className="bg-gradient-to-b from-black to-luxe-dark/20 border border-luxe/30 p-4 sm:p-6 md:p-8 rounded-lg shadow-lg">
               <div className="flex flex-col gap-6">
                 <div className="flex items-center w-full mb-4">
-                  <div className="w-16 h-16 rounded-full bg-gradient-to-br from-luxe-light via-luxe to-luxe-dark flex items-center justify-center mr-4 flex-shrink-0">
+                  <div className="w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 rounded-full bg-gradient-to-br from-luxe-light via-luxe to-luxe-dark flex items-center justify-center mr-4 flex-shrink-0">
                     <span className="text-black text-2xl font-bold">4</span>
                   </div>
-                  <h3 className="text-2xl font-semibold text-luxe-light flex-grow">
+                  <h3 className="text-lg sm:text-xl md:text-2xl font-semibold text-luxe-light flex-grow">
                     永年無料のオンライン自習室の開放とChatworkでの個別サポート
                   </h3>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                <div className="flex flex-col gap-4 sm:gap-6 lg:grid lg:grid-cols-2 lg:gap-8 items-center">
                   <p className="text-gray-300 text-lg">
                     卒業後も自習室やチャットサポートを無料で利用可能。 大学入学後の学習もしっかりサポートします。
                   </p>
@@ -141,16 +145,18 @@ export default function Benefits() {
 
           {/* プレミアム特典 */}
           {/* 大学卒業後の就活サポート */}
-          <div className="bg-gradient-to-b from-black to-luxe-dark/20 border border-luxe/30 p-8 rounded-lg shadow-lg">
+          <div className="bg-gradient-to-b from-black to-luxe-dark/20 border border-luxe/30 p-4 sm:p-6 md:p-8 rounded-lg shadow-lg">
             <div className="flex flex-col gap-6">
               <div className="flex items-center w-full mb-4">
-                <div className="w-16 h-16 rounded-full bg-gradient-to-br from-luxe-light via-luxe to-luxe-dark flex items-center justify-center mr-4 flex-shrink-0">
+                <div className="w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 rounded-full bg-gradient-to-br from-luxe-light via-luxe to-luxe-dark flex items-center justify-center mr-4 flex-shrink-0">
                   <span className="text-black text-2xl font-bold">5</span>
                 </div>
-                <h3 className="text-2xl font-semibold text-luxe-light flex-grow">大学卒業後の、就活サポート</h3>
+                <h3 className="text-lg sm:text-xl md:text-2xl font-semibold text-luxe-light flex-grow">
+                  大学卒業後の、就活サポート
+                </h3>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+              <div className="flex flex-col gap-4 sm:gap-6 lg:grid lg:grid-cols-2 lg:gap-8 items-center">
                 <p className="text-gray-300 text-lg">
                   大学卒業後の就職活動もサポート。履歴書の添削から面接対策まで、
                   キャリア形成を見据えた総合的な支援を提供します。
@@ -167,16 +173,18 @@ export default function Benefits() {
           </div>
 
           {/* PLAUD AIの無料配布 */}
-          <div className="bg-gradient-to-b from-black to-luxe-dark/20 border border-luxe/30 p-8 rounded-lg shadow-lg">
+          <div className="bg-gradient-to-b from-black to-luxe-dark/20 border border-luxe/30 p-4 sm:p-6 md:p-8 rounded-lg shadow-lg">
             <div className="flex flex-col gap-6">
               <div className="flex items-center w-full mb-4">
-                <div className="w-16 h-16 rounded-full bg-gradient-to-br from-luxe-light via-luxe to-luxe-dark flex items-center justify-center mr-4 flex-shrink-0">
+                <div className="w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 rounded-full bg-gradient-to-br from-luxe-light via-luxe to-luxe-dark flex items-center justify-center mr-4 flex-shrink-0">
                   <span className="text-black text-2xl font-bold">6</span>
                 </div>
-                <h3 className="text-2xl font-semibold text-luxe-light flex-grow">PLAUD AIの無料配布</h3>
+                <h3 className="text-lg sm:text-xl md:text-2xl font-semibold text-luxe-light flex-grow">
+                  PLAUD AIの無料配布
+                </h3>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+              <div className="flex flex-col gap-4 sm:gap-6 lg:grid lg:grid-cols-2 lg:gap-8 items-center">
                 <p className="text-gray-300 text-lg">
                   学習効率を飛躍的に高めるAIアプリ「PLAUD AI」を無料で提供。
                   課題の提出、録音、文字起こし、要約などを一元管理し、効率的な学習をサポートします。
