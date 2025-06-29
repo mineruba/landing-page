@@ -74,8 +74,8 @@ export default function DailySchedule() {
     // 円グラフの中心と半径 - スマホ時は正円になるように調整
     const isMobile = width < 640
     const centerX = width / 2
-    const centerY = isMobile ? height / 3 : height / 2 - 70 // スマホ時は上部に配置
-    const radius = isMobile ? Math.min(width * 0.35, 120) : Math.min(width * 0.9, height * 0.6) * 0.4 // スマホ時は固定サイズで正円に
+    const centerY = isMobile ? height / 4 : height / 2 - 70 // スマホ時はより上部に配置
+    const radius = isMobile ? Math.min(width * 0.25, 80) : Math.min(width * 0.9, height * 0.6) * 0.4 // スマホ時はより小さく
 
     // 円グラフの背景（黒い円）
     ctx.beginPath()
@@ -199,30 +199,32 @@ export default function DailySchedule() {
         const lines = labelText.split("\n")
         const lineHeight = 16
         const bgPadding = 6
-        const bgWidth = Math.max(...lines.map((line) => ctx.measureText(line).width)) + bgPadding * 3 // パディングを増やして文字が見切れないようにする
+        const bgWidth = Math.max(...lines.map((line) => ctx.measureText(line).width)) + bgPadding * 3
         const bgHeight = lines.length * lineHeight + bgPadding * 2
 
-        // 外側のラベル位置を計算 - スマホ時は距離を調整
-        let labelDistance = isMobile ? radius * 1.6 : radius * 1.25
+        // 外側のラベル位置を計算 - スマホ時は内側に配置
+        let labelDistance = isMobile ? radius * 0.7 : radius * 1.25 // スマホ時は内側に
 
         // 「就寝」ラベルの場合の調整もスマホ対応
         if (slot.name === "就寝" || slot.name === "登校・授業") {
-          labelDistance = isMobile ? radius * 1.8 : radius * 1.4
+          labelDistance = isMobile ? radius * 0.6 : radius * 1.4 // スマホ時はより内側に
         }
 
         const labelX = centerX + labelDistance * Math.cos(angle)
         const labelY = centerY + labelDistance * Math.sin(angle)
 
-        // セグメントからラベルへの線を描画
-        const innerX = centerX + radius * 0.9 * Math.cos(angle)
-        const innerY = centerY + radius * 0.9 * Math.sin(angle)
+        // スマホ時はセグメントからラベルへの線を描画しない
+        if (!isMobile) {
+          const innerX = centerX + radius * 0.9 * Math.cos(angle)
+          const innerY = centerY + radius * 0.9 * Math.sin(angle)
 
-        ctx.beginPath()
-        ctx.moveTo(innerX, innerY)
-        ctx.lineTo(labelX - (bgWidth / 2) * Math.cos(angle), labelY - (bgHeight / 2) * Math.sin(angle))
-        ctx.strokeStyle = slot.isStudy ? "rgba(212, 175, 55, 0.7)" : "rgba(255, 255, 255, 0.5)"
-        ctx.lineWidth = 1
-        ctx.stroke()
+          ctx.beginPath()
+          ctx.moveTo(innerX, innerY)
+          ctx.lineTo(labelX - (bgWidth / 2) * Math.cos(angle), labelY - (bgHeight / 2) * Math.sin(angle))
+          ctx.strokeStyle = slot.isStudy ? "rgba(212, 175, 55, 0.7)" : "rgba(255, 255, 255, 0.5)"
+          ctx.lineWidth = 1
+          ctx.stroke()
+        }
 
         // 背景色
         const bgColor = slot.isStudy ? "rgba(255, 255, 255, 0.85)" : "rgba(0, 0, 0, 0.7)"
@@ -243,9 +245,11 @@ export default function DailySchedule() {
         roundRectPath(ctx, -bgWidth / 2, -bgHeight / 2, bgWidth, bgHeight, 4)
         ctx.stroke()
 
-        // テキストを描画
+        // テキストを描画 - スマホ時はフォントサイズを小さく
         ctx.fillStyle = textColor
-        ctx.font = slot.isStudy ? "bold 11px 'Noto Serif JP', serif" : "11px 'Noto Serif JP', serif"
+        ctx.font = slot.isStudy
+          ? `bold ${isMobile ? "8px" : "11px"} 'Noto Serif JP', serif`
+          : `${isMobile ? "8px" : "11px"} 'Noto Serif JP', serif`
         ctx.textAlign = "center"
         ctx.textBaseline = "middle"
 
@@ -258,33 +262,35 @@ export default function DailySchedule() {
       }
     })
 
-    // 時間の目盛りを描画
-    for (let hour = 0; hour < 24; hour += 3) {
-      const angle = (hour / 24) * Math.PI * 2 - Math.PI / 2
-      const hourX = centerX + (radius + 35) * Math.cos(angle) // 25から35に増加
-      const hourY = centerY + (radius + 35) * Math.sin(angle) // 25から35に増加
+    // 時間の目盛りを描画 - スマホ時は表示しない
+    if (!isMobile) {
+      for (let hour = 0; hour < 24; hour += 3) {
+        const angle = (hour / 24) * Math.PI * 2 - Math.PI / 2
+        const hourX = centerX + (radius + 35) * Math.cos(angle)
+        const hourY = centerY + (radius + 35) * Math.sin(angle)
 
-      // 時間ラベルの背景
-      const hourText = `${hour}:00`
-      const textWidth = ctx.measureText(hourText).width + 10
-      const textHeight = 24
+        // 時間ラベルの背景
+        const hourText = `${hour}:00`
+        const textWidth = ctx.measureText(hourText).width + 10
+        const textHeight = 24
 
-      ctx.fillStyle = "rgba(20, 20, 20, 0.7)"
-      roundRect(ctx, hourX - textWidth / 2, hourY - textHeight / 2, textWidth, textHeight, 4)
+        ctx.fillStyle = "rgba(20, 20, 20, 0.7)"
+        roundRect(ctx, hourX - textWidth / 2, hourY - textHeight / 2, textWidth, textHeight, 4)
 
-      // 時間ラベルの境界線
-      ctx.strokeStyle = "rgba(212, 175, 55, 0.3)"
-      ctx.lineWidth = 1
-      ctx.beginPath()
-      roundRectPath(ctx, hourX - textWidth / 2, hourY - textHeight / 2, textWidth, textHeight, 4)
-      ctx.stroke()
+        // 時間ラベルの境界線
+        ctx.strokeStyle = "rgba(212, 175, 55, 0.3)"
+        ctx.lineWidth = 1
+        ctx.beginPath()
+        roundRectPath(ctx, hourX - textWidth / 2, hourY - textHeight / 2, textWidth, textHeight, 4)
+        ctx.stroke()
 
-      // 時間ラベルのテキスト
-      ctx.fillStyle = "#f9e3b1"
-      ctx.font = "bold 10px 'Noto Serif JP', serif"
-      ctx.textAlign = "center"
-      ctx.textBaseline = "middle"
-      ctx.fillText(hourText, hourX, hourY)
+        // 時間ラベルのテキスト
+        ctx.fillStyle = "#f9e3b1"
+        ctx.font = "bold 10px 'Noto Serif JP', serif"
+        ctx.textAlign = "center"
+        ctx.textBaseline = "middle"
+        ctx.fillText(hourText, hourX, hourY)
+      }
     }
 
     // 凡例を描画 - 位置を上に調整

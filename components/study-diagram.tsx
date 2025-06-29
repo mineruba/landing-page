@@ -34,32 +34,39 @@ export default function StudyDiagram() {
     // 背景を透明に
     ctx.clearRect(0, 0, rect.width, rect.height)
 
-    // レーダーチャートを描画 - スマホ時は上部に配置
-    const isMobile = rect.width < 640
-    const chartCenterX = isMobile ? rect.width / 2 : rect.width * 0.3
-    const chartCenterY = isMobile ? rect.height * 0.3 : rect.height / 2
+    // drawDiagram関数を修正してスマホ時に縦並びにする
+    const drawDiagram = (ctx: CanvasRenderingContext2D, width: number, height: number) => {
+      // スマホかどうかを判定
+      const isMobile = width < 640
 
-    drawRadarChart(ctx, chartCenterX, chartCenterY)
+      // レーダーチャートを描画 - スマホ時は上部に配置
+      const chartCenterX = isMobile ? width / 2 : width * 0.3
+      const chartCenterY = isMobile ? height * 0.25 : height / 2
 
-    // 学習スケジュールを描画 - スマホ時は下部に配置
-    const scheduleCenterX = isMobile ? rect.width / 2 : rect.width * 0.7
-    const scheduleCenterY = isMobile ? rect.height * 0.7 : rect.height / 2
+      drawRadarChart(ctx, chartCenterX, chartCenterY)
 
-    drawStudySchedule(ctx, scheduleCenterX, scheduleCenterY)
+      // 学習スケジュールを描画 - スマホ時は下部に配置
+      const scheduleCenterX = isMobile ? width / 2 : width * 0.7
+      const scheduleCenterY = isMobile ? height * 0.75 : height / 2
 
-    // 矢印を描画 - スマホ時は縦向きに
-    if (isMobile) {
-      drawArrow(ctx, chartCenterX, chartCenterY + 85, scheduleCenterX, scheduleCenterY - 100)
-    } else {
-      drawArrow(ctx, chartCenterX + 110, chartCenterY, scheduleCenterX - 130, scheduleCenterY)
+      drawStudySchedule(ctx, scheduleCenterX, scheduleCenterY)
+
+      // 矢印を描画 - スマホ時は縦向きに
+      if (isMobile) {
+        drawArrow(ctx, chartCenterX, chartCenterY + 70, scheduleCenterX, scheduleCenterY - 90)
+      } else {
+        drawArrow(ctx, chartCenterX + 110, chartCenterY, scheduleCenterX - 130, scheduleCenterY)
+      }
+
+      // タイトルを描画 - スマホ時は位置調整
+      drawTitle(ctx, chartCenterX, isMobile ? 15 : 10, "あなたの学力レベル")
+      drawTitle(ctx, scheduleCenterX, isMobile ? height * 0.5 + 15 : 10, "あなたに最適な学習方法")
+
+      // 下部のテキスト
+      drawBottomText(ctx, width / 2, height - 15)
     }
 
-    // タイトルを描画 - スマホ時は位置調整
-    drawTitle(ctx, chartCenterX, isMobile ? 20 : 10, "あなたの学力レベル")
-    drawTitle(ctx, scheduleCenterX, isMobile ? rect.height * 0.5 + 20 : 10, "あなたに最適な学習方法")
-
-    // 下部のテキスト
-    drawBottomText(ctx, rect.width / 2, rect.height - 15)
+    drawDiagram(ctx, rect.width, rect.height)
   }, [])
 
   // レーダーチャートを描画する関数

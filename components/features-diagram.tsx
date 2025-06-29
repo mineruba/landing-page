@@ -34,9 +34,9 @@ export default function FeaturesDiagram() {
     // スマホかどうかを判定
     const isMobile = width < 640
 
-    // フォントサイズをレスポンシブに調整
-    const titleFontSize = isMobile ? "10px" : "18px" // 14px → 10px に変更
-    const textFontSize = isMobile ? "9px" : "14px" // 12px → 9px に変更
+    // フォントサイズをレスポンシブに調整 - さらに小さく
+    const titleFontSize = isMobile ? "8px" : "18px" // 10px → 8px に変更
+    const textFontSize = isMobile ? "7px" : "14px" // 9px → 7px に変更
 
     // 中央の円の半径を画面サイズに応じて調整
     const centerRadius = Math.min(width, height) * (isMobile ? 0.12 : 0.15)
@@ -76,12 +76,12 @@ export default function FeaturesDiagram() {
 
     // 中央のテキスト
     ctx.fillStyle = "#000"
-    ctx.font = `bold ${titleFontSize} 'Noto Serif JP', serif` // 16pxから18pxに変更
+    ctx.font = `bold ${titleFontSize} 'Noto Serif JP', serif`
     ctx.textAlign = "center"
     ctx.textBaseline = "middle"
     ctx.fillText("Minerva", centerX, centerY)
-    ctx.font = `${textFontSize} 'Noto Serif JP', serif` // 12pxから14pxに変更
-    ctx.fillText("学習メソッド", centerX, centerY + (isMobile ? 16 : 22)) // スマホ時は16pxに調整
+    ctx.font = `${textFontSize} 'Noto Serif JP', serif`
+    ctx.fillText("学習メソッド", centerX, centerY + (isMobile ? 12 : 22)) // 16px → 12px に変更
 
     // 周囲の特徴（5つ）
     const features = [
@@ -134,14 +134,14 @@ export default function FeaturesDiagram() {
 
       // 特徴のテキスト
       ctx.fillStyle = "#fff"
-      ctx.font = `bold ${textFontSize} 'Noto Serif JP', serif` // 12pxから14pxに変更
+      ctx.font = `bold ${textFontSize} 'Noto Serif JP', serif`
       ctx.textAlign = "center"
       ctx.textBaseline = "middle"
 
       // 改行対応
       const lines = feature.name.split("\n")
       lines.forEach((line, index) => {
-        const lineY = y + (index - (lines.length - 1) / 2) * (isMobile ? 14 : 18) // スマホ時は14pxに調整
+        const lineY = y + (index - (lines.length - 1) / 2) * (isMobile ? 10 : 18) // 14px → 10px に変更
         ctx.fillText(line, x, lineY)
       })
     })
