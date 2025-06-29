@@ -1,6 +1,6 @@
 export default function FreeTrial() {
   return (
-    <section className="py-8 sm:py-10 md:py-16 bg-black/90 relative overflow-hidden" id="free-trial">
+    <section className="py-10 md:py-16 bg-black/90 relative overflow-hidden" id="free-trial">
       {/* 装飾的な背景要素 */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-0 left-1/4 w-px h-20 bg-gradient-to-b from-luxe/30 to-transparent"></div>
@@ -10,7 +10,7 @@ export default function FreeTrial() {
       </div>
 
       <div className="container mx-auto px-4">
-        <div className="max-w-4xl mx-auto bg-gradient-to-b from-black to-luxe-dark/10 border-2 border-luxe p-4 sm:p-6 md:p-8 lg:p-10 rounded-lg shadow-xl shadow-luxe/20 relative">
+        <div className="max-w-4xl mx-auto bg-gradient-to-b from-black to-luxe-dark/10 border-2 border-luxe p-8 md:p-10 rounded-lg shadow-xl shadow-luxe/20 relative">
           {/* 装飾的な角の要素 */}
           <div className="absolute top-0 left-0 w-16 h-16 border-t-2 border-l-2 border-luxe/70"></div>
           <div className="absolute top-0 right-0 w-16 h-16 border-t-2 border-r-2 border-luxe/70"></div>
@@ -23,16 +23,16 @@ export default function FreeTrial() {
           </div>
 
           <div className="text-center mb-8">
-            <h2 className="text-2xl sm:text-3xl md:text-5xl font-bold mb-4 relative inline-block">
+            <h2 className="text-3xl md:text-5xl font-bold mb-4 relative inline-block">
               <span className="gold-text-luxe">2週間無料体験受講受付中</span>
               <span className="absolute -bottom-2 left-0 w-full h-1 bg-gradient-to-r from-transparent via-luxe to-transparent"></span>
             </h2>
-            <p className="text-lg sm:text-xl md:text-2xl text-gray-300 mt-6">
+            <p className="text-xl md:text-2xl text-gray-300 mt-6">
               Minervaの学習メソッドを<span className="text-luxe font-semibold">無料</span>で体験できるチャンス！
             </p>
           </div>
 
-          <div className="grid grid-cols-1 gap-4 sm:gap-6 md:grid-cols-2 md:gap-8 mb-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
             <div className="bg-black/50 p-6 rounded-lg border border-luxe/30">
               <h3 className="text-xl font-semibold mb-4 text-luxe-light">体験内容</h3>
               <ul className="space-y-3">
@@ -94,7 +94,7 @@ export default function FreeTrial() {
             </p>
             <a
               href="#contact"
-              className="gold-button px-6 py-3 sm:px-8 sm:py-4 md:px-10 rounded-md text-lg sm:text-xl font-semibold relative overflow-hidden inline-block group"
+              className="gold-button px-10 py-4 rounded-md text-xl font-semibold relative overflow-hidden inline-block group"
             >
               <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-luxe-light via-luxe to-luxe-dark opacity-0 group-hover:opacity-100 transition-opacity duration-500"></span>
               <span className="relative z-10">無料体験に申し込む</span>

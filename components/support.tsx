@@ -59,32 +59,32 @@ export default function Support() {
   ]
 
   return (
-    <section className="py-12 sm:py-20 md:py-28 bg-gradient-to-b from-black to-gray-900" id="support">
+    <section className="py-20 md:py-28 bg-gradient-to-b from-black to-gray-900" id="support">
       <div className="container mx-auto px-4">
         <div className="max-w-3xl mx-auto text-center mb-16">
-          <h2 className="text-2xl sm:text-3xl md:text-5xl font-bold mb-8 relative inline-block">
+          <h2 className="text-3xl md:text-5xl font-bold mb-8 relative inline-block">
             <span className="gold-text-luxe">学習サポート</span>
             <span className="absolute -bottom-2 left-0 w-full h-1 bg-gradient-to-r from-transparent via-luxe to-transparent"></span>
           </h2>
 
-          <p className="text-base sm:text-lg md:text-xl leading-relaxed">
+          <p className="text-lg md:text-xl leading-relaxed">
             大学受験Minervaでは、<span className="text-luxe font-medium">多角的なアプローチ</span>
             で生徒一人ひとりの学習をサポートします
           </p>
         </div>
 
-        <div className="flex flex-col gap-4 sm:gap-6 max-w-4xl mx-auto">
+        <div className="flex flex-col gap-8 max-w-4xl mx-auto">
           {supports.map((item, index) => (
             <div
               key={index}
               className="bg-gradient-to-b from-black/90 to-gray-900/90 backdrop-blur-sm border border-gray-800 rounded-lg overflow-hidden shadow-lg hover:shadow-luxe/20 hover:border-luxe/50 transition-all duration-500 group"
             >
-              <div className="p-4 sm:p-6 md:p-8 flex flex-col lg:flex-row gap-4 sm:gap-6">
-                <div className="flex flex-col items-center lg:items-start lg:w-1/2">
-                  <div className="w-16 h-16 sm:w-18 sm:h-18 md:w-20 md:h-20 rounded-full bg-black/50 flex items-center justify-center mb-6 shadow-inner shadow-luxe/10 group-hover:shadow-luxe/30 transition-all duration-500">
+              <div className="p-8 flex flex-col md:flex-row gap-6">
+                <div className="flex flex-col items-center md:items-start md:w-1/2">
+                  <div className="w-20 h-20 rounded-full bg-black/50 flex items-center justify-center mb-6 shadow-inner shadow-luxe/10 group-hover:shadow-luxe/30 transition-all duration-500">
                     {item.icon}
                   </div>
-                  <h3 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-semibold text-luxe-light group-hover:text-luxe transition-colors duration-300 text-center md:text-left mb-4">
+                  <h3 className="text-3xl md:text-4xl font-semibold text-luxe-light group-hover:text-luxe transition-colors duration-300 text-center md:text-left mb-4">
                     {item.title}
                   </h3>
                   <div className="w-12 h-0.5 bg-gradient-to-r from-transparent via-luxe/50 to-transparent mt-1 mb-4 group-hover:w-24 transition-all duration-500"></div>
@@ -99,7 +99,7 @@ export default function Support() {
                   </p>
                 </div>
 
-                <div className="lg:w-1/2 mt-6 lg:mt-0 relative">
+                <div className="md:w-1/2 mt-6 md:mt-0 relative">
                   {index === 0 ? (
                     <div className="border-2 border-luxe/30 rounded-lg overflow-hidden bg-black/30 group-hover:border-luxe/50 transition-all duration-500 shadow-lg shadow-black/50 relative">
                       <img

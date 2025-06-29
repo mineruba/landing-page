@@ -58,14 +58,14 @@ export default function Contact() {
   }, [isSubmitted, isMobileOrTablet, redirectCountdown])
 
   return (
-    <section className="py-12 sm:py-20 md:py-28 bg-black/80" id="contact">
+    <section className="py-20 md:py-28 bg-black/80" id="contact">
       <div className="container mx-auto px-4">
         <div className="max-w-3xl mx-auto text-center mb-16">
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4">
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">
             <span className="gold-text-luxe">お問い合わせ</span>
           </h2>
           <div className="w-20 h-1 bg-gold-gradient mx-auto mb-8"></div>
-          <p className="text-base sm:text-lg md:text-xl leading-relaxed">
+          <p className="text-lg md:text-xl leading-relaxed">
             ご質問やご相談は、以下のフォームよりお気軽にお問い合わせください
           </p>
         </div>
@@ -74,9 +74,9 @@ export default function Contact() {
           {!isSubmitted ? (
             <form
               onSubmit={handleSubmit}
-              className="bg-black/70 backdrop-blur-sm border border-gray-800 rounded-lg p-4 sm:p-6 md:p-8 shadow-lg shadow-luxe/10"
+              className="bg-black/70 backdrop-blur-sm border border-gray-800 rounded-lg p-8 shadow-lg shadow-luxe/10"
             >
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 mb-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                 <div>
                   <label htmlFor="name" className="block mb-2 font-medium">
                     お名前 <span className="text-luxe">*</span>
@@ -107,7 +107,7 @@ export default function Contact() {
                 </div>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 mb-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                 <div>
                   <label htmlFor="phone" className="block mb-2 font-medium">
                     電話番号
@@ -157,7 +157,7 @@ export default function Contact() {
               </div>
 
               <div className="text-center">
-                <button type="submit" className="gold-button px-6 py-2 sm:px-8 sm:py-3 rounded-md text-base sm:text-lg">
+                <button type="submit" className="gold-button px-8 py-3 rounded-md text-lg">
                   送信する
                 </button>
               </div>
@@ -199,11 +199,7 @@ export default function Contact() {
                   </p>
 
                   <div className="border-4 border-luxe p-2 rounded-lg mb-4 bg-white">
-                    <img
-                      src="/images/line-qr.png"
-                      alt="大学受験Minerva公式LINE"
-                      className="w-32 h-32 sm:w-40 sm:h-40 md:w-48 md:h-48 object-cover mx-auto"
-                    />
+                    <img src="/images/line-qr.png" alt="大学受験Minerva公式LINE" className="w-48 h-48 object-cover" />
                   </div>
                   <p className="text-lg font-medium gold-text-luxe mb-2">大学受験Minerva公式LINE</p>
                   <p className="text-gray-300 mb-6">QRコードを読み取って友だち追加してください</p>

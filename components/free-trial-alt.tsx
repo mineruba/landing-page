@@ -15,7 +15,7 @@ export default function FreeTrialAlt() {
   }, [])
 
   return (
-    <section className="py-12 sm:py-20 md:py-28 bg-gradient-to-b from-black/90 to-gray-900/90" id="free-trial-alt">
+    <section className="py-20 md:py-28 bg-gradient-to-b from-black/90 to-gray-900/90" id="free-trial-alt">
       <div className="container mx-auto px-4">
         <div
           className={`max-w-6xl mx-auto transition-all duration-1000 transform ${
@@ -23,11 +23,11 @@ export default function FreeTrialAlt() {
           }`}
         >
           <div className="text-center mb-16">
-            <h2 className="text-2xl sm:text-3xl md:text-5xl font-bold mb-4">
+            <h2 className="text-3xl md:text-5xl font-bold mb-4">
               <span className="gold-text-luxe">まずは無料で体験してみませんか？</span>
             </h2>
             <div className="w-20 h-1 bg-gold-gradient mx-auto mb-8"></div>
-            <p className="text-lg sm:text-xl md:text-2xl leading-relaxed">
+            <p className="text-xl md:text-2xl leading-relaxed">
               Minervaの学習メソッドを<span className="text-luxe">2週間無料</span>で体験できます
             </p>
           </div>
@@ -35,12 +35,12 @@ export default function FreeTrialAlt() {
           <div className="bg-black/60 backdrop-blur-sm border border-gray-800 rounded-2xl overflow-hidden shadow-2xl">
             <div className="grid grid-cols-1 lg:grid-cols-2">
               {/* 左側：体験内容 */}
-              <div className="p-4 sm:p-6 md:p-10 lg:p-12 relative">
+              <div className="p-10 md:p-12 relative">
                 <div className="absolute top-0 right-0 bg-luxe text-black font-bold py-1 px-4 rounded-bl-lg text-sm">
                   期間限定
                 </div>
 
-                <h3 className="text-xl sm:text-2xl md:text-3xl font-bold mb-8 flex items-center">
+                <h3 className="text-2xl md:text-3xl font-bold mb-8 flex items-center">
                   <Clock className="w-8 h-8 mr-3 text-luxe" />
                   <span>2週間無料体験</span>
                 </h3>
@@ -49,7 +49,7 @@ export default function FreeTrialAlt() {
                   <div className="flex items-start">
                     <CheckCircle2 className="w-6 h-6 text-luxe mr-3 flex-shrink-0 mt-1" />
                     <div>
-                      <h4 className="font-semibold text-lg sm:text-xl mb-1">マンツーマンサポート（2回）</h4>
+                      <h4 className="font-semibold text-xl mb-1">マンツーマンサポート（2回）</h4>
                       <p className="text-gray-300">
                         専任講師による個別指導で、あなたの学習スタイルや弱点を分析します。
                       </p>
@@ -59,7 +59,7 @@ export default function FreeTrialAlt() {
                   <div className="flex items-start">
                     <CheckCircle2 className="w-6 h-6 text-luxe mr-3 flex-shrink-0 mt-1" />
                     <div>
-                      <h4 className="font-semibold text-lg sm:text-xl mb-1">オンライン自習室の利用</h4>
+                      <h4 className="font-semibold text-xl mb-1">オンライン自習室の利用</h4>
                       <p className="text-gray-300">
                         24時間利用可能なオンライン自習室で、集中して学習できる環境を体験できます。
                       </p>
@@ -69,7 +69,7 @@ export default function FreeTrialAlt() {
                   <div className="flex items-start">
                     <CheckCircle2 className="w-6 h-6 text-luxe mr-3 flex-shrink-0 mt-1" />
                     <div>
-                      <h4 className="font-semibold text-lg sm:text-xl mb-1">動画フィードバック（1回）</h4>
+                      <h4 className="font-semibold text-xl mb-1">動画フィードバック（1回）</h4>
                       <p className="text-gray-300">提出課題に対する詳細な動画フィードバックで、理解度を深めます。</p>
                     </div>
                   </div>
@@ -77,7 +77,7 @@ export default function FreeTrialAlt() {
                   <div className="flex items-start">
                     <CheckCircle2 className="w-6 h-6 text-luxe mr-3 flex-shrink-0 mt-1" />
                     <div>
-                      <h4 className="font-semibold text-lg sm:text-xl mb-1">PLAUD AIの試用アクセス</h4>
+                      <h4 className="font-semibold text-xl mb-1">PLAUD AIの試用アクセス</h4>
                       <p className="text-gray-300">学習効率を高めるAIアプリを実際に試して、その効果を実感できます。</p>
                     </div>
                   </div>
@@ -94,7 +94,7 @@ export default function FreeTrialAlt() {
 
               {/* 右側：特典と申し込みボタン */}
               <div className="bg-gradient-to-br from-gray-900 to-black p-10 md:p-12 border-t lg:border-t-0 lg:border-l border-gray-800">
-                <h3 className="text-xl sm:text-2xl md:text-3xl font-bold mb-8 flex items-center">
+                <h3 className="text-2xl md:text-3xl font-bold mb-8 flex items-center">
                   <Gift className="w-8 h-8 mr-3 text-luxe" />
                   <span>体験特典</span>
                 </h3>
@@ -105,7 +105,7 @@ export default function FreeTrialAlt() {
                       1
                     </div>
                     <div>
-                      <h4 className="font-semibold text-lg sm:text-xl mb-1 text-luxe-light">学習診断書を無料進呈</h4>
+                      <h4 className="font-semibold text-xl mb-1 text-luxe-light">学習診断書を無料進呈</h4>
                       <p className="text-gray-300">
                         あなたの学習スタイルや弱点を分析した診断書を作成し、無料で提供します。
                       </p>
@@ -117,7 +117,7 @@ export default function FreeTrialAlt() {
                       2
                     </div>
                     <div>
-                      <h4 className="font-semibold text-lg sm:text-xl mb-1 text-luxe-light">オリジナル教材サンプル</h4>
+                      <h4 className="font-semibold text-xl mb-1 text-luxe-light">オリジナル教材サンプル</h4>
                       <p className="text-gray-300">Minerva独自の効果的な学習教材のサンプルをプレゼント。</p>
                     </div>
                   </div>
@@ -127,7 +127,7 @@ export default function FreeTrialAlt() {
                       3
                     </div>
                     <div>
-                      <h4 className="font-semibold text-lg sm:text-xl mb-1 text-luxe-light">無料相談（60分）</h4>
+                      <h4 className="font-semibold text-xl mb-1 text-luxe-light">無料相談（60分）</h4>
                       <p className="text-gray-300">
                         学習方法や受験対策について、専門スタッフによる個別相談を無料で受けられます。
                       </p>
@@ -138,7 +138,7 @@ export default function FreeTrialAlt() {
                 <div className="text-center">
                   <a
                     href="#contact"
-                    className="inline-flex items-center justify-center bg-gradient-to-r from-luxe-light via-luxe to-luxe-dark text-black font-bold text-lg sm:text-xl px-6 py-3 sm:px-8 sm:py-4 md:px-10 rounded-lg shadow-lg shadow-luxe/20 hover:shadow-luxe/40 transition-all duration-300 hover:scale-105"
+                    className="inline-flex items-center justify-center bg-gradient-to-r from-luxe-light via-luxe to-luxe-dark text-black font-bold text-xl px-10 py-4 rounded-lg shadow-lg shadow-luxe/20 hover:shadow-luxe/40 transition-all duration-300 hover:scale-105"
                   >
                     無料体験に申し込む
                     <ArrowRight className="ml-2 w-5 h-5" />
@@ -150,7 +150,7 @@ export default function FreeTrialAlt() {
           </div>
 
           {/* 体験者の声 */}
-          <div className="mt-16 grid grid-cols-1 gap-4 sm:gap-6 md:grid-cols-3">
+          <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-6">
             <div
               className={`bg-black/50 border border-gray-800 p-6 rounded-lg shadow-md transition-all duration-1000 transform ${
                 isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"

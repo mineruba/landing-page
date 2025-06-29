@@ -67,14 +67,14 @@ export default function GradeProgress() {
   const selectedStudent = studentProgressData.find((student) => student.id === activeStudent) || studentProgressData[0]
 
   return (
-    <section className="py-12 sm:py-20 md:py-28 bg-black/90" id="grade-progress">
+    <section className="py-20 md:py-28 bg-black/90" id="grade-progress">
       <div className="container mx-auto px-4">
         <div className="max-w-3xl mx-auto text-center mb-16">
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4">
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">
             <span className="gold-text-luxe">実際に入塾した生徒の成績推移</span>
           </h2>
           <div className="w-20 h-1 bg-gold-gradient mx-auto mb-8"></div>
-          <p className="text-base sm:text-lg md:text-xl leading-relaxed">
+          <p className="text-lg md:text-xl leading-relaxed">
             Minervaの学習メソッドで、<span className="text-luxe">短期間で驚くほどの成績向上</span>
             を実現しています
           </p>
@@ -82,8 +82,8 @@ export default function GradeProgress() {
 
         <div className="max-w-5xl mx-auto">
           {/* 成績推移グラフ */}
-          <div className="bg-gradient-to-b from-black/80 to-black/60 backdrop-blur-sm border border-gray-800 p-4 sm:p-6 md:p-8 rounded-lg mb-12 hover:border-luxe hover:shadow-lg hover:shadow-luxe/10 transition-all duration-500">
-            <h3 className="text-lg sm:text-xl md:text-2xl font-semibold mb-6 text-center">
+          <div className="bg-gradient-to-b from-black/80 to-black/60 backdrop-blur-sm border border-gray-800 p-8 rounded-lg mb-12 hover:border-luxe hover:shadow-lg hover:shadow-luxe/10 transition-all duration-500">
+            <h3 className="text-2xl font-semibold mb-6 text-center">
               <span className="gold-text-luxe">偏差値の推移</span>
             </h3>
 
@@ -92,7 +92,7 @@ export default function GradeProgress() {
                 <button
                   key={student.id}
                   onClick={() => setActiveStudent(student.id)}
-                  className={`px-3 py-1 sm:px-4 sm:py-2 rounded-md transition-all ${
+                  className={`px-4 py-2 rounded-md transition-all ${
                     activeStudent === student.id
                       ? "bg-gradient-to-r from-luxe-light to-luxe-dark text-black font-medium"
                       : "bg-gray-900 hover:bg-gray-800"
@@ -103,7 +103,7 @@ export default function GradeProgress() {
               ))}
             </div>
 
-            <div className="h-48 sm:h-64 md:h-72 lg:h-80 w-full">
+            <div className="h-80 w-full">
               {isMounted && (
                 <ResponsiveContainer width="100%" height="100%">
                   <LineChart
@@ -164,9 +164,9 @@ export default function GradeProgress() {
           </div>
 
           {/* 平均点上昇データ */}
-          <div className="grid grid-cols-1 gap-4 sm:gap-6 md:grid-cols-2 md:gap-8">
-            <div className="bg-gradient-to-b from-black/80 to-black/60 backdrop-blur-sm border border-gray-800 p-4 sm:p-6 md:p-8 rounded-lg hover:border-luxe hover:shadow-lg hover:shadow-luxe/10 transition-all duration-500">
-              <h3 className="text-lg sm:text-xl md:text-2xl font-semibold mb-6 text-center">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div className="bg-gradient-to-b from-black/80 to-black/60 backdrop-blur-sm border border-gray-800 p-8 rounded-lg hover:border-luxe hover:shadow-lg hover:shadow-luxe/10 transition-all duration-500">
+              <h3 className="text-2xl font-semibold mb-6 text-center">
                 <span className="gold-text-luxe">教科別平均点上昇</span>
               </h3>
 
@@ -193,8 +193,8 @@ export default function GradeProgress() {
               <p className="mt-8 text-center text-gray-300 text-sm">※ 入塾から1年間の平均点上昇（100点満点換算）</p>
             </div>
 
-            <div className="bg-gradient-to-b from-black/80 to-black/60 backdrop-blur-sm border border-gray-800 p-4 sm:p-6 md:p-8 rounded-lg hover:border-luxe hover:shadow-lg hover:shadow-luxe/10 transition-all duration-500">
-              <h3 className="text-lg sm:text-xl md:text-2xl font-semibold mb-6 text-center">
+            <div className="bg-gradient-to-b from-black/80 to-black/60 backdrop-blur-sm border border-gray-800 p-8 rounded-lg hover:border-luxe hover:shadow-lg hover:shadow-luxe/10 transition-all duration-500">
+              <h3 className="text-2xl font-semibold mb-6 text-center">
                 <span className="gold-text-luxe">合格実績</span>
               </h3>
 
@@ -226,8 +226,8 @@ export default function GradeProgress() {
           </div>
 
           {/* 成功事例 */}
-          <div className="mt-12 bg-gradient-to-b from-black/80 to-luxe-dark/10 backdrop-blur-sm border border-gray-800 p-4 sm:p-6 md:p-8 rounded-lg hover:border-luxe hover:shadow-lg hover:shadow-luxe/10 transition-all duration-500">
-            <h3 className="text-lg sm:text-xl md:text-2xl font-semibold mb-6 text-center">
+          <div className="mt-12 bg-gradient-to-b from-black/80 to-luxe-dark/10 backdrop-blur-sm border border-gray-800 p-8 rounded-lg hover:border-luxe hover:shadow-lg hover:shadow-luxe/10 transition-all duration-500">
+            <h3 className="text-2xl font-semibold mb-6 text-center">
               <span className="gold-text-luxe">成功事例</span>
             </h3>
 

@@ -109,19 +109,17 @@ export default function Pricing() {
   ]
 
   return (
-    <section className="py-12 sm:py-20 md:py-28" id="pricing">
+    <section className="py-20 md:py-28" id="pricing">
       <div className="container mx-auto px-4">
         <div className="max-w-3xl mx-auto text-center mb-16">
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4">
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">
             <span className="gold-text-luxe">料金</span>
           </h2>
           <div className="w-20 h-1 bg-gold-gradient mx-auto mb-8"></div>
-          <p className="text-lg sm:text-xl md:text-2xl leading-relaxed">
-            あなたの学習期間に合わせてプランをお選びいただけます。
-          </p>
+          <p className="text-xl md:text-2xl leading-relaxed">あなたの学習期間に合わせてプランをお選びいただけます。</p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-3 sm:gap-4 max-w-5xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-5xl mx-auto">
           {plans.map((plan, index) => (
             <div
               key={index}
@@ -134,10 +132,10 @@ export default function Pricing() {
               {plan.featured && (
                 <div className="bg-gold-gradient py-2 text-center text-black font-semibold">人気プラン</div>
               )}
-              <div className="bg-black p-4 sm:p-5 md:p-6 h-full">
-                <h3 className="text-xl sm:text-2xl font-bold mb-2">{plan.title}</h3>
+              <div className="bg-black p-6 h-full">
+                <h3 className="text-2xl font-bold mb-2">{plan.title}</h3>
                 <div className="mb-6">
-                  <span className="text-2xl sm:text-3xl md:text-4xl font-bold gold-text-luxe">¥{plan.price}</span>
+                  <span className="text-4xl font-bold gold-text-luxe">¥{plan.price}</span>
                   <span className="text-gray-400">(税込)</span>
                 </div>
                 <ul className="space-y-3 mb-8">
@@ -215,8 +213,8 @@ export default function Pricing() {
                 <span className="gold-text-luxe">他塾との比較</span>
               </h3>
 
-              <div className="overflow-x-auto -mx-4 px-4 sm:mx-0 sm:px-0">
-                <table className="w-full border-collapse" style={{ minWidth: "600px" }}>
+              <div className="overflow-x-auto">
+                <table className="w-full border-collapse">
                   <thead>
                     <tr className="border-b border-gray-800">
                       <th className="py-3 px-4 text-left">サービス内容</th>

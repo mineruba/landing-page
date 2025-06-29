@@ -15,7 +15,7 @@ export default function Hero() {
         <div className="absolute top-1/3 right-0 h-px w-40 bg-gradient-to-r from-transparent via-luxe/30 to-transparent"></div>
       </div>
 
-      <div className="container mx-auto px-4 py-16 sm:py-24 md:py-32 relative z-10">
+      <div className="container mx-auto px-4 py-24 md:py-32 relative z-10">
         <div className="max-w-4xl mx-auto text-center relative">
           {/* Decorative corner elements */}
           <div className="absolute -top-10 -left-10 w-20 h-20 border-t-2 border-l-2 border-luxe/40 hidden md:block"></div>
@@ -28,7 +28,7 @@ export default function Hero() {
             PREMIUM EDUCATION
           </div>
 
-          <h1 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight">
+          <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight">
             勉強を
             <span className="gold-text-luxe relative inline-block">
               好きになる
@@ -43,22 +43,19 @@ export default function Hero() {
             を育む
           </h1>
 
-          <p className="text-lg sm:text-xl md:text-2xl text-gray-300 mb-10 max-w-2xl mx-auto">
+          <p className="text-xl md:text-2xl text-gray-300 mb-10 max-w-2xl mx-auto">
             大学受験Minervaは単なる合格だけでなく
             <span className="block">学ぶ力と習慣を身につける教育を提供します</span>
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <a
-              href="#contact"
-              className="gold-button px-6 py-3 sm:px-8 sm:py-4 rounded-md text-base sm:text-lg relative overflow-hidden group"
-            >
+            <a href="#contact" className="gold-button px-8 py-4 rounded-md text-lg relative overflow-hidden group">
               <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-luxe-light via-luxe to-luxe-dark opacity-0 group-hover:opacity-100 transition-opacity duration-500"></span>
               <span className="relative z-10">無料相談を予約する</span>
             </a>
             <a
               href="#philosophy"
-              className="bg-transparent border border-white hover:border-luxe hover:text-luxe text-white px-6 py-3 sm:px-8 sm:py-4 rounded-md text-base sm:text-lg font-medium transition relative group"
+              className="bg-transparent border border-white hover:border-luxe hover:text-luxe text-white px-8 py-4 rounded-md text-lg font-medium transition relative group"
             >
               <span className="absolute inset-0 w-0 bg-black group-hover:w-full transition-all duration-300"></span>
               <span className="relative z-10">Minervaを詳しく知る</span>

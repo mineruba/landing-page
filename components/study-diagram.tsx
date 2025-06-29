@@ -1,21 +1,9 @@
 "use client"
 
-import { useEffect, useRef, useState } from "react"
+import { useEffect, useRef } from "react"
 
 export default function StudyDiagram() {
   const canvasRef = useRef<HTMLCanvasElement>(null)
-  const [canvasHeight, setCanvasHeight] = useState("300px")
-
-  useEffect(() => {
-    const updateHeight = () => {
-      setCanvasHeight(window.innerWidth < 768 ? "600px" : "300px") // スマホ時により高く
-    }
-
-    updateHeight()
-    window.addEventListener("resize", updateHeight)
-
-    return () => window.removeEventListener("resize", updateHeight)
-  }, [])
 
   useEffect(() => {
     const canvas = canvasRef.current
@@ -34,39 +22,21 @@ export default function StudyDiagram() {
     // 背景を透明に
     ctx.clearRect(0, 0, rect.width, rect.height)
 
-    // drawDiagram関数を修正してスマホ時にチャートを中央配置し、縦並びにする
-    const drawDiagram = (ctx: CanvasRenderingContext2D, width: number, height: number) => {
-      // スマホかどうかを判定
-      const isMobile = width < 768
+    // 左側のレーダーチャートを描画 - サイズを大きく
+    drawRadarChart(ctx, rect.width * 0.3, rect.height / 2)
 
-      // レーダーチャートを描画 - スマホ時は中央上部に配置
-      const chartCenterX = isMobile ? width / 2 : width * 0.3
-      const chartCenterY = isMobile ? height * 0.2 : height / 2
+    // 右側の学習スケジュールを描画 - サイズを大きく
+    drawStudySchedule(ctx, rect.width * 0.7, rect.height / 2)
 
-      drawRadarChart(ctx, chartCenterX, chartCenterY)
+    // 矢印を描画
+    drawArrow(ctx, rect.width * 0.3 + 110, rect.height / 2, rect.width * 0.7 - 130, rect.height / 2)
 
-      // 学習スケジュールを描画 - スマホ時は中央下部に配置、十分な間隔を確保
-      const scheduleCenterX = isMobile ? width / 2 : width * 0.7
-      const scheduleCenterY = isMobile ? height * 0.8 : height / 2
+    // タイトルを描画
+    drawTitle(ctx, rect.width * 0.3, 10, "あなたの学力レベル")
+    drawTitle(ctx, rect.width * 0.7, 10, "あなたに最適な学習方法")
 
-      drawStudySchedule(ctx, scheduleCenterX, scheduleCenterY)
-
-      // 矢印を描画 - スマホ時は縦向きに、間隔を調整
-      if (isMobile) {
-        drawArrow(ctx, chartCenterX, chartCenterY + 90, scheduleCenterX, scheduleCenterY - 120)
-      } else {
-        drawArrow(ctx, chartCenterX + 110, chartCenterY, scheduleCenterX - 130, scheduleCenterY)
-      }
-
-      // タイトルを描画 - スマホ時は位置調整
-      drawTitle(ctx, chartCenterX, isMobile ? 20 : 10, "あなたの学力レベル")
-      drawTitle(ctx, scheduleCenterX, isMobile ? height * 0.6 + 20 : 10, "あなたに最適な学習方法")
-
-      // 下部のテキスト
-      drawBottomText(ctx, width / 2, height - 15)
-    }
-
-    drawDiagram(ctx, rect.width, rect.height)
+    // 下部のテキスト
+    drawBottomText(ctx, rect.width / 2, rect.height - 15)
   }, [])
 
   // レーダーチャートを描画する関数
@@ -239,41 +209,38 @@ export default function StudyDiagram() {
   }
 
   return (
-    <section className="py-10 sm:py-16 md:py-20" id="study-diagram">
+    <section className="py-16 md:py-20" id="study-diagram">
       <div className="container mx-auto px-4">
         <div className="max-w-3xl mx-auto text-center mb-10">
-          <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-4">
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">
             <span className="gold-text-luxe">学習メソッド</span>
           </h2>
           <div className="w-20 h-1 bg-gold-gradient mx-auto mb-8"></div>
-          <p className="text-sm sm:text-base md:text-lg lg:text-xl leading-relaxed">
+          <p className="text-lg md:text-xl leading-relaxed">
             Minervaでは一人ひとりの学力を分析し、最適な学習プランを提供します
           </p>
         </div>
 
-        <div className="bg-black/70 backdrop-blur-sm border border-gray-800 rounded-lg p-3 sm:p-4 md:p-6 overflow-hidden max-w-[95vw] md:max-w-4xl mx-auto min-h-[600px] md:min-h-0">
-          <h3 className="text-base sm:text-lg md:text-xl font-bold mb-6 text-center py-2">
+        <div className="bg-black/70 backdrop-blur-sm border border-gray-800 rounded-lg p-4 md:p-6 overflow-hidden max-w-4xl mx-auto">
+          <h3 className="text-xl font-bold mb-6 text-center">
             <span className="gold-text-luxe">1日の学習メニュー例</span>
           </h3>
 
-          <div className="relative py-4 md:py-0">
-            <canvas
-              ref={canvasRef}
-              className="w-[90%] md:w-full max-w-[90vw] md:max-w-full mx-auto object-contain"
-              style={{ height: canvasHeight }}
-            />
+          <div className="relative">
+            {/* 人物アイコンを表示していた div 要素を削除 */}
+            <canvas ref={canvasRef} className="w-full mx-auto" style={{ height: "300px" }} />
           </div>
         </div>
 
-        <div className="mt-8 text-center max-w-3xl mx-auto py-4">
-          <p className="text-sm sm:text-base md:text-lg leading-relaxed mb-2">
+        <div className="mt-8 text-center max-w-3xl mx-auto">
+          <p className="text-lg leading-relaxed">
             大学受験において重要なことは、<span className="text-luxe">自分の弱点を正確に把握し</span>、
             それに合わせた学習計画を
           </p>
-          <p className="text-sm sm:text-base md:text-lg leading-relaxed mb-2">
+          <p className="text-lg leading-relaxed">
             立てることです。Minervaでは、AIを活用した分析と講師の経験を組み合わせ
           </p>
-          <p className="text-sm sm:text-base md:text-lg leading-relaxed">
+          <p className="text-lg leading-relaxed">
             <span className="text-luxe">一人ひとりに最適化された学習プラン</span>を提供します。
           </p>
         </div>

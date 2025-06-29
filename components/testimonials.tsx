@@ -27,30 +27,28 @@ export default function Testimonials() {
   ]
 
   return (
-    <section className="py-12 sm:py-20 md:py-28 bg-black/80" id="testimonials">
+    <section className="py-20 md:py-28 bg-black/80" id="testimonials">
       <div className="container mx-auto px-4">
         <div className="max-w-3xl mx-auto text-center mb-16">
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4">
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">
             <span className="gold-text-luxe">受講生の声</span>
           </h2>
           <div className="w-20 h-1 bg-gold-gradient mx-auto mb-8"></div>
-          <p className="text-base sm:text-lg md:text-xl leading-relaxed">
-            Minervaで学んだ先輩たちの体験談をご紹介します
-          </p>
+          <p className="text-lg md:text-xl leading-relaxed">Minervaで学んだ先輩たちの体験談をご紹介します</p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 md:gap-8 max-w-5xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
           {testimonials.map((testimonial, index) => (
             <div
               key={index}
-              className="bg-gradient-to-b from-gray-900/50 to-black/50 backdrop-blur-sm border border-gray-800 p-4 sm:p-6 md:p-8 rounded-lg hover:border-luxe hover:gold-border transition duration-300"
+              className="bg-gradient-to-b from-gray-900/50 to-black/50 backdrop-blur-sm border border-gray-800 p-8 rounded-lg hover:border-luxe hover:gold-border transition duration-300"
             >
               <div className="flex items-center mb-6">
                 <div className="rounded-full overflow-hidden mr-4 border-2 border-luxe">
                   <img
                     src={testimonial.image || "/placeholder.svg"}
                     alt="生徒アイコン"
-                    className="w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 object-cover"
+                    className="w-16 h-16 object-cover"
                   />
                 </div>
                 <div>
