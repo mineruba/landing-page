@@ -9,7 +9,7 @@ export default function DailySchedule() {
   useEffect(() => {
     const updateHeight = () => {
       if (window.innerWidth < 768) {
-        setCanvasHeight("800px") // スマホで十分な高さを確保
+        setCanvasHeight("900px") // スマホで十分な高さを確保
       } else if (window.innerWidth < 1024) {
         setCanvasHeight("750px")
       } else {
@@ -71,12 +71,13 @@ export default function DailySchedule() {
       { name: "自由時間・就寝準備", hours: 4.75, color: luxeColors.mediumGray },
     ]
 
-    // 円グラフの中心と半径 - スマホ時は正円になるように調整
+    // 円グラフの中心と半径 - スマホ時は正円を維持し、画面内に収める
     const isMobile = width < 768
     const centerX = width / 2
-    const centerY = isMobile ? height / 4 : height / 2 - 70
-    // 正円を保つため、幅と高さの最小値を使用
-    const radius = isMobile ? Math.min(width * 0.25, 80) : Math.min(width * 0.9, height * 0.6) * 0.4
+    const centerY = isMobile ? height / 3.5 : height / 2 - 70
+
+    // スマホ時は画面幅の30%、PC時は従来通り
+    const radius = isMobile ? Math.min(width * 0.3, height * 0.15) : Math.min(width * 0.9, height * 0.6) * 0.4
 
     // 円グラフの背景（黒い円）
     ctx.beginPath()
@@ -119,19 +120,19 @@ export default function DailySchedule() {
     // 総学習時間のテキスト - グラデーションテキストで直接表示
     const textGradient = ctx.createLinearGradient(
       centerX - 100,
-      centerY - radius - 100,
-      centerX + 100,
       centerY - radius - 80,
+      centerX + 100,
+      centerY - radius - 60,
     )
     textGradient.addColorStop(0, "#f9e3b1")
     textGradient.addColorStop(0.5, "#d4af37")
     textGradient.addColorStop(1, "#9e7c23")
 
     ctx.fillStyle = textGradient
-    ctx.font = "bold 20px 'Noto Serif JP', serif" // フォントサイズを大きくして目立たせる
+    ctx.font = `bold ${isMobile ? "14px" : "20px"} 'Noto Serif JP', serif`
     ctx.textAlign = "center"
     ctx.textBaseline = "middle"
-    ctx.fillText(studyTimeText, centerX, centerY - radius - 90)
+    ctx.fillText(studyTimeText, centerX, centerY - radius - (isMobile ? 60 : 90))
 
     // 円グラフのセグメントを描画
     let startAngle = -Math.PI / 2 // 12時の位置から開始
@@ -198,17 +199,17 @@ export default function DailySchedule() {
       if (sliceAngle > 0.2) {
         const labelText = slot.isStudy ? `${slot.name}\n${slot.minutes}分` : slot.name
         const lines = labelText.split("\n")
-        const lineHeight = 16
-        const bgPadding = 6
+        const lineHeight = isMobile ? 12 : 16
+        const bgPadding = isMobile ? 4 : 6
         const bgWidth = Math.max(...lines.map((line) => ctx.measureText(line).width)) + bgPadding * 3
         const bgHeight = lines.length * lineHeight + bgPadding * 2
 
         // 外側のラベル位置を計算 - スマホ時は内側に配置
-        let labelDistance = isMobile ? radius * 0.6 : radius * 1.25
+        let labelDistance = isMobile ? radius * 0.4 : radius * 1.25
 
         // 「就寝」ラベルの場合の調整もスマホ対応
         if (slot.name === "就寝" || slot.name === "登校・授業") {
-          labelDistance = isMobile ? radius * 0.5 : radius * 1.4
+          labelDistance = isMobile ? radius * 0.3 : radius * 1.4
         }
 
         const labelX = centerX + labelDistance * Math.cos(angle)
@@ -246,11 +247,11 @@ export default function DailySchedule() {
         roundRectPath(ctx, -bgWidth / 2, -bgHeight / 2, bgWidth, bgHeight, 4)
         ctx.stroke()
 
-        // テキストを描画 - スマホ時はフォントサイズを小さく
+        // テキストを描画 - スマホ時はフォントサイズをより小さく
         ctx.fillStyle = textColor
         ctx.font = slot.isStudy
-          ? `bold ${isMobile ? "8px" : "11px"} 'Noto Serif JP', serif`
-          : `${isMobile ? "8px" : "11px"} 'Noto Serif JP', serif`
+          ? `bold ${isMobile ? "6px" : "11px"} 'Noto Serif JP', serif`
+          : `${isMobile ? "6px" : "11px"} 'Noto Serif JP', serif`
         ctx.textAlign = "center"
         ctx.textBaseline = "middle"
 
@@ -295,7 +296,7 @@ export default function DailySchedule() {
     }
 
     // 凡例を描画 - 位置を上に調整
-    const legendY = isMobile ? centerY + radius + 120 : centerY + radius + 160
+    const legendY = isMobile ? centerY + radius + 150 : centerY + radius + 160
 
     const legendWidth = width * 0.8
     const legendX = centerX - legendWidth / 2
@@ -530,7 +531,7 @@ export default function DailySchedule() {
   return (
     <section className="py-10 sm:py-16 md:py-20" id="daily-schedule">
       <div className="container mx-auto px-4">
-        <div className="max-w-3xl mx-auto text-center mb-10">
+        <div className="max-w-3xl mx-auto text-center mb-10 py-4">
           <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-4 flex flex-col md:flex-row items-center justify-center gap-2">
             <span className="text-[#D4AF37]">
               <svg
@@ -562,13 +563,13 @@ export default function DailySchedule() {
           </p>
         </div>
 
-        <div className="bg-black/70 backdrop-blur-sm border border-gray-800 rounded-lg p-3 sm:p-4 md:p-6 overflow-hidden max-w-[95vw] md:max-w-5xl mx-auto shadow-lg shadow-black/50 min-h-[600px] md:min-h-0">
+        <div className="bg-black/70 backdrop-blur-sm border border-gray-800 rounded-lg p-3 sm:p-4 md:p-6 overflow-hidden max-w-[95vw] md:max-w-5xl mx-auto shadow-lg shadow-black/50 min-h-[800px] md:min-h-0">
           <h3 className="text-base sm:text-lg md:text-xl font-bold mb-6 text-center flex flex-col md:flex-row items-center justify-center gap-2 py-2">
             <span className="w-6 h-0.5 bg-[#D4AF37]"></span>
             <span className="gold-text-luxe">1日の学習スケジュール例</span>
           </h3>
 
-          <div className="relative max-w-3xl mx-auto py-6 md:py-0">
+          <div className="relative max-w-3xl mx-auto py-8 md:py-0">
             <canvas
               ref={canvasRef}
               className="w-[90%] md:w-full max-w-[90vw] md:max-w-full mx-auto object-contain"

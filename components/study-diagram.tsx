@@ -8,7 +8,7 @@ export default function StudyDiagram() {
 
   useEffect(() => {
     const updateHeight = () => {
-      setCanvasHeight(window.innerWidth < 768 ? "500px" : "300px") // より高く設定
+      setCanvasHeight(window.innerWidth < 768 ? "600px" : "300px") // スマホ時により高く
     }
 
     updateHeight()
@@ -34,33 +34,33 @@ export default function StudyDiagram() {
     // 背景を透明に
     ctx.clearRect(0, 0, rect.width, rect.height)
 
-    // drawDiagram関数を修正してスマホ時に縦並びにする
+    // drawDiagram関数を修正してスマホ時にチャートを中央配置し、縦並びにする
     const drawDiagram = (ctx: CanvasRenderingContext2D, width: number, height: number) => {
       // スマホかどうかを判定
       const isMobile = width < 768
 
-      // レーダーチャートを描画 - スマホ時は上部に配置、余白を追加
+      // レーダーチャートを描画 - スマホ時は中央上部に配置
       const chartCenterX = isMobile ? width / 2 : width * 0.3
-      const chartCenterY = isMobile ? height * 0.25 : height / 2
+      const chartCenterY = isMobile ? height * 0.2 : height / 2
 
       drawRadarChart(ctx, chartCenterX, chartCenterY)
 
-      // 学習スケジュールを描画 - スマホ時は下部に配置、十分な間隔を確保
+      // 学習スケジュールを描画 - スマホ時は中央下部に配置、十分な間隔を確保
       const scheduleCenterX = isMobile ? width / 2 : width * 0.7
-      const scheduleCenterY = isMobile ? height * 0.75 : height / 2
+      const scheduleCenterY = isMobile ? height * 0.8 : height / 2
 
       drawStudySchedule(ctx, scheduleCenterX, scheduleCenterY)
 
       // 矢印を描画 - スマホ時は縦向きに、間隔を調整
       if (isMobile) {
-        drawArrow(ctx, chartCenterX, chartCenterY + 80, scheduleCenterX, scheduleCenterY - 100)
+        drawArrow(ctx, chartCenterX, chartCenterY + 90, scheduleCenterX, scheduleCenterY - 120)
       } else {
         drawArrow(ctx, chartCenterX + 110, chartCenterY, scheduleCenterX - 130, scheduleCenterY)
       }
 
       // タイトルを描画 - スマホ時は位置調整
-      drawTitle(ctx, chartCenterX, isMobile ? 15 : 10, "あなたの学力レベル")
-      drawTitle(ctx, scheduleCenterX, isMobile ? height * 0.5 + 15 : 10, "あなたに最適な学習方法")
+      drawTitle(ctx, chartCenterX, isMobile ? 20 : 10, "あなたの学力レベル")
+      drawTitle(ctx, scheduleCenterX, isMobile ? height * 0.6 + 20 : 10, "あなたに最適な学習方法")
 
       // 下部のテキスト
       drawBottomText(ctx, width / 2, height - 15)
@@ -251,7 +251,7 @@ export default function StudyDiagram() {
           </p>
         </div>
 
-        <div className="bg-black/70 backdrop-blur-sm border border-gray-800 rounded-lg p-3 sm:p-4 md:p-6 overflow-hidden max-w-[95vw] md:max-w-4xl mx-auto min-h-[500px] md:min-h-0">
+        <div className="bg-black/70 backdrop-blur-sm border border-gray-800 rounded-lg p-3 sm:p-4 md:p-6 overflow-hidden max-w-[95vw] md:max-w-4xl mx-auto min-h-[600px] md:min-h-0">
           <h3 className="text-base sm:text-lg md:text-xl font-bold mb-6 text-center py-2">
             <span className="gold-text-luxe">1日の学習メニュー例</span>
           </h3>

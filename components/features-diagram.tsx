@@ -36,17 +36,17 @@ export default function FeaturesDiagram() {
 
     // キャンバス全体のサイズを調整
     const canvasSize = Math.min(width, height)
-    const scaleFactor = isMobile ? 0.8 : 1.0
+    const scaleFactor = isMobile ? 0.7 : 1.0 // スマホ時により小さく
 
-    // フォントサイズをより小さく調整
-    const titleFontSize = isMobile ? "6px" : "18px"
-    const textFontSize = isMobile ? "5px" : "14px"
+    // フォントサイズをスマホ用により小さく調整
+    const titleFontSize = isMobile ? "4px" : "18px"
+    const textFontSize = isMobile ? "3px" : "14px"
 
-    // 中央の円の半径をさらに小さく
-    const centerRadius = canvasSize * (isMobile ? 0.08 : 0.15) * scaleFactor
+    // 中央の円の半径をスマホ時により小さく
+    const centerRadius = canvasSize * (isMobile ? 0.06 : 0.15) * scaleFactor
 
-    // 周囲の円の配置も調整
-    const radius = canvasSize * (isMobile ? 0.22 : 0.35) * scaleFactor
+    // 周囲の円の配置もスマホ時により内側に
+    const radius = canvasSize * (isMobile ? 0.18 : 0.35) * scaleFactor
 
     // 高級感のあるカラーパレット
     const colors = {
@@ -74,7 +74,7 @@ export default function FeaturesDiagram() {
     ctx.fillStyle = centerGradient
     ctx.fill()
     ctx.strokeStyle = colors.darkGold
-    ctx.lineWidth = 2
+    ctx.lineWidth = isMobile ? 1 : 2
     ctx.stroke()
 
     // 中央のテキスト
@@ -84,7 +84,7 @@ export default function FeaturesDiagram() {
     ctx.textBaseline = "middle"
     ctx.fillText("Minerva", centerX, centerY)
     ctx.font = `${textFontSize} 'Noto Serif JP', serif`
-    ctx.fillText("学習メソッド", centerX, centerY + (isMobile ? 12 : 22))
+    ctx.fillText("学習メソッド", centerX, centerY + (isMobile ? 8 : 22))
 
     // 周囲の特徴（5つ）
     const features = [
@@ -100,37 +100,40 @@ export default function FeaturesDiagram() {
       const x = centerX + radius * Math.cos(angle)
       const y = centerY + radius * Math.sin(angle)
 
+      // 特徴の円のサイズをスマホ時により小さく
+      const featureRadius = centerRadius * (isMobile ? 0.6 : 0.8)
+
       // 特徴の円のグラデーション
-      const featureGradient = ctx.createRadialGradient(x, y, 0, x, y, centerRadius * 0.8)
+      const featureGradient = ctx.createRadialGradient(x, y, 0, x, y, featureRadius)
       featureGradient.addColorStop(0, "rgba(30, 30, 30, 0.9)")
       featureGradient.addColorStop(1, "rgba(10, 10, 10, 0.9)")
 
       // 特徴の円を描画
       ctx.beginPath()
-      ctx.arc(x, y, centerRadius * 0.8, 0, Math.PI * 2)
+      ctx.arc(x, y, featureRadius, 0, Math.PI * 2)
       ctx.fillStyle = featureGradient
       ctx.fill()
       ctx.strokeStyle = colors.gold
-      ctx.lineWidth = 1.5
+      ctx.lineWidth = isMobile ? 1 : 1.5
       ctx.stroke()
 
       // 中央から特徴への線
       ctx.beginPath()
       ctx.moveTo(centerX + centerRadius * Math.cos(angle), centerY + centerRadius * Math.sin(angle))
-      ctx.lineTo(x - centerRadius * 0.8 * Math.cos(angle), y - centerRadius * 0.8 * Math.sin(angle))
+      ctx.lineTo(x - featureRadius * Math.cos(angle), y - featureRadius * Math.sin(angle))
 
       // 線のグラデーション
       const lineGradient = ctx.createLinearGradient(
         centerX + centerRadius * Math.cos(angle),
         centerY + centerRadius * Math.sin(angle),
-        x - centerRadius * 0.8 * Math.cos(angle),
-        y - centerRadius * 0.8 * Math.sin(angle),
+        x - featureRadius * Math.cos(angle),
+        y - featureRadius * Math.sin(angle),
       )
       lineGradient.addColorStop(0, colors.gold)
       lineGradient.addColorStop(1, "rgba(212, 175, 55, 0.3)")
 
       ctx.strokeStyle = lineGradient
-      ctx.lineWidth = 1.5
+      ctx.lineWidth = isMobile ? 1 : 1.5
       ctx.stroke()
 
       // 特徴のテキスト
@@ -139,23 +142,21 @@ export default function FeaturesDiagram() {
       ctx.textAlign = "center"
       ctx.textBaseline = "middle"
 
-      // 改行対応
+      // 改行対応 - スマホ時は行間を狭く
       const lines = feature.name.split("\n")
       lines.forEach((line, index) => {
-        const lineY = y + (index - (lines.length - 1) / 2) * (isMobile ? 10 : 18)
+        const lineY = y + (index - (lines.length - 1) / 2) * (isMobile ? 6 : 18)
         ctx.fillText(line, x, lineY)
       })
     })
 
     // 効果を示す外側の円
-    const outerRadius = Math.min(width, height) * 0.45
+    const outerRadius = Math.min(width, height) * (isMobile ? 0.35 : 0.45)
     ctx.beginPath()
     ctx.arc(centerX, centerY, outerRadius, 0, Math.PI * 2)
     ctx.strokeStyle = "rgba(212, 175, 55, 0.2)"
-    ctx.lineWidth = 15
+    ctx.lineWidth = isMobile ? 8 : 15
     ctx.stroke()
-
-    // 効果テキストの描画部分を削除（ラベルを消す）
   }
 
   // 角丸の長方形を描画するヘルパー関数
@@ -192,7 +193,7 @@ export default function FeaturesDiagram() {
           <div className="relative w-full lg:w-1/2 flex justify-center py-4 md:py-0">
             <canvas
               ref={canvasRef}
-              className="w-[90%] md:w-full max-w-[90vw] md:max-w-full mx-auto h-[180px] sm:h-[220px] md:h-[400px] lg:h-[500px] object-contain"
+              className="w-full max-w-full mx-auto h-[160px] sm:h-[200px] md:h-[400px] lg:h-[500px] object-contain"
             />
           </div>
 
