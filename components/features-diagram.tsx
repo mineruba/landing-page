@@ -189,7 +189,7 @@ export default function FeaturesDiagram() {
         <div className="flex flex-col lg:flex-row gap-6 lg:gap-8 items-center">
           {/* 図解部分 */}
           <div className="relative w-full lg:w-1/2">
-            <canvas ref={canvasRef} className="w-full mx-auto h-[300px] md:h-[400px] lg:h-[500px]" />
+            <canvas ref={canvasRef} className="w-full mx-auto h-[250px] sm:h-[300px] md:h-[400px] lg:h-[500px]" />
           </div>
 
           {/* 表部分 */}
