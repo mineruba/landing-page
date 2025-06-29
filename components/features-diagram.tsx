@@ -32,17 +32,22 @@ export default function FeaturesDiagram() {
   // 図解を描画する関数
   const drawDiagram = (ctx: CanvasRenderingContext2D, width: number, height: number) => {
     // スマホかどうかを判定
-    const isMobile = width < 640
+    const isMobile = width < 768
 
-    // フォントサイズをレスポンシブに調整 - さらに小さく
-    const titleFontSize = isMobile ? "8px" : "18px" // 10px → 8px に変更
-    const textFontSize = isMobile ? "7px" : "14px" // 9px → 7px に変更
+    // キャンバス全体のサイズを調整
+    const canvasSize = Math.min(width, height)
+    const scaleFactor = isMobile ? 0.8 : 1.0
 
-    // 中央の円の半径を画面サイズに応じて調整
-    const centerRadius = Math.min(width, height) * (isMobile ? 0.12 : 0.15)
+    // フォントサイズをより小さく調整
+    const titleFontSize = isMobile ? "6px" : "18px"
+    const textFontSize = isMobile ? "5px" : "14px"
+
+    // 中央の円の半径をさらに小さく
+    const centerRadius = canvasSize * (isMobile ? 0.08 : 0.15) * scaleFactor
 
     // 周囲の円の配置も調整
-    const radius = Math.min(width, height) * (isMobile ? 0.28 : 0.35)
+    const radius = canvasSize * (isMobile ? 0.22 : 0.35) * scaleFactor
+
     // 高級感のあるカラーパレット
     const colors = {
       gold: "#d4af37",
@@ -56,8 +61,6 @@ export default function FeaturesDiagram() {
     // 中央の円（Minerva）
     const centerX = width / 2
     const centerY = height / 2
-    // 正円になるように半径を計算
-    // const centerRadius = Math.min(width, height) * 0.15
 
     // 中央の円のグラデーション
     const centerGradient = ctx.createRadialGradient(centerX, centerY, 0, centerX, centerY, centerRadius)
@@ -81,7 +84,7 @@ export default function FeaturesDiagram() {
     ctx.textBaseline = "middle"
     ctx.fillText("Minerva", centerX, centerY)
     ctx.font = `${textFontSize} 'Noto Serif JP', serif`
-    ctx.fillText("学習メソッド", centerX, centerY + (isMobile ? 12 : 22)) // 16px → 12px に変更
+    ctx.fillText("学習メソッド", centerX, centerY + (isMobile ? 12 : 22))
 
     // 周囲の特徴（5つ）
     const features = [
@@ -92,8 +95,6 @@ export default function FeaturesDiagram() {
       { name: "1冊の参考書を\n完璧にする", icon: "BookMarked" },
     ]
 
-    // 正円になるように半径を計算
-    // const radius = Math.min(width, height) * 0.35
     features.forEach((feature, i) => {
       const angle = (Math.PI * 2 * i) / features.length - Math.PI / 2
       const x = centerX + radius * Math.cos(angle)
@@ -141,7 +142,7 @@ export default function FeaturesDiagram() {
       // 改行対応
       const lines = feature.name.split("\n")
       lines.forEach((line, index) => {
-        const lineY = y + (index - (lines.length - 1) / 2) * (isMobile ? 10 : 18) // 14px → 10px に変更
+        const lineY = y + (index - (lines.length - 1) / 2) * (isMobile ? 10 : 18)
         ctx.fillText(line, x, lineY)
       })
     })
@@ -189,7 +190,7 @@ export default function FeaturesDiagram() {
         <div className="flex flex-col lg:flex-row gap-6 lg:gap-8 items-center">
           {/* 図解部分 */}
           <div className="relative w-full lg:w-1/2">
-            <canvas ref={canvasRef} className="w-full mx-auto h-[250px] sm:h-[300px] md:h-[400px] lg:h-[500px]" />
+            <canvas ref={canvasRef} className="w-full mx-auto h-[200px] sm:h-[250px] md:h-[400px] lg:h-[500px]" />
           </div>
 
           {/* 表部分 */}

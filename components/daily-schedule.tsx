@@ -8,8 +8,8 @@ export default function DailySchedule() {
 
   useEffect(() => {
     const updateHeight = () => {
-      if (window.innerWidth < 640) {
-        setCanvasHeight("700px") // スマホで高さを増加してラベルが切れないように
+      if (window.innerWidth < 768) {
+        setCanvasHeight("800px") // スマホで十分な高さを確保
       } else if (window.innerWidth < 1024) {
         setCanvasHeight("750px")
       } else {
@@ -72,10 +72,11 @@ export default function DailySchedule() {
     ]
 
     // 円グラフの中心と半径 - スマホ時は正円になるように調整
-    const isMobile = width < 640
+    const isMobile = width < 768
     const centerX = width / 2
-    const centerY = isMobile ? height / 4 : height / 2 - 70 // スマホ時はより上部に配置
-    const radius = isMobile ? Math.min(width * 0.25, 80) : Math.min(width * 0.9, height * 0.6) * 0.4 // スマホ時はより小さく
+    const centerY = isMobile ? height / 3.5 : height / 2 - 70
+    // 正円を保つため、幅と高さの最小値を使用
+    const radius = isMobile ? Math.min(width * 0.2, 70) : Math.min(width * 0.9, height * 0.6) * 0.4
 
     // 円グラフの背景（黒い円）
     ctx.beginPath()
@@ -203,11 +204,11 @@ export default function DailySchedule() {
         const bgHeight = lines.length * lineHeight + bgPadding * 2
 
         // 外側のラベル位置を計算 - スマホ時は内側に配置
-        let labelDistance = isMobile ? radius * 0.7 : radius * 1.25 // スマホ時は内側に
+        let labelDistance = isMobile ? radius * 0.6 : radius * 1.25
 
         // 「就寝」ラベルの場合の調整もスマホ対応
         if (slot.name === "就寝" || slot.name === "登校・授業") {
-          labelDistance = isMobile ? radius * 0.6 : radius * 1.4 // スマホ時はより内側に
+          labelDistance = isMobile ? radius * 0.5 : radius * 1.4
         }
 
         const labelX = centerX + labelDistance * Math.cos(angle)
@@ -248,8 +249,8 @@ export default function DailySchedule() {
         // テキストを描画 - スマホ時はフォントサイズを小さく
         ctx.fillStyle = textColor
         ctx.font = slot.isStudy
-          ? `bold ${isMobile ? "8px" : "11px"} 'Noto Serif JP', serif`
-          : `${isMobile ? "8px" : "11px"} 'Noto Serif JP', serif`
+          ? `bold ${isMobile ? "7px" : "11px"} 'Noto Serif JP', serif`
+          : `${isMobile ? "7px" : "11px"} 'Noto Serif JP', serif`
         ctx.textAlign = "center"
         ctx.textBaseline = "middle"
 
@@ -294,12 +295,12 @@ export default function DailySchedule() {
     }
 
     // 凡例を描画 - 位置を上に調整
-    const legendY = centerY + radius + 160 // 200から160に減少させて上に移動
+    const legendY = isMobile ? centerY + radius + 120 : centerY + radius + 160
 
     const legendWidth = width * 0.8
     const legendX = centerX - legendWidth / 2
     const legendItemHeight = 30
-    const legendItemsPerRow = 2
+    const legendItemsPerRow = isMobile ? 1 : 2 // スマホ時は1列表示
     const legendItemWidth = legendWidth / legendItemsPerRow
 
     // 凡例の背景

@@ -8,7 +8,7 @@ export default function StudyDiagram() {
 
   useEffect(() => {
     const updateHeight = () => {
-      setCanvasHeight(window.innerWidth < 640 ? "400px" : "300px") // スマホ時は縦長に
+      setCanvasHeight(window.innerWidth < 768 ? "500px" : "300px") // より高く設定
     }
 
     updateHeight()
@@ -37,23 +37,23 @@ export default function StudyDiagram() {
     // drawDiagram関数を修正してスマホ時に縦並びにする
     const drawDiagram = (ctx: CanvasRenderingContext2D, width: number, height: number) => {
       // スマホかどうかを判定
-      const isMobile = width < 640
+      const isMobile = width < 768
 
-      // レーダーチャートを描画 - スマホ時は上部に配置
+      // レーダーチャートを描画 - スマホ時は上部に配置、余白を追加
       const chartCenterX = isMobile ? width / 2 : width * 0.3
-      const chartCenterY = isMobile ? height * 0.25 : height / 2
+      const chartCenterY = isMobile ? height * 0.3 : height / 2
 
       drawRadarChart(ctx, chartCenterX, chartCenterY)
 
-      // 学習スケジュールを描画 - スマホ時は下部に配置
+      // 学習スケジュールを描画 - スマホ時は下部に配置、十分な間隔を確保
       const scheduleCenterX = isMobile ? width / 2 : width * 0.7
       const scheduleCenterY = isMobile ? height * 0.75 : height / 2
 
       drawStudySchedule(ctx, scheduleCenterX, scheduleCenterY)
 
-      // 矢印を描画 - スマホ時は縦向きに
+      // 矢印を描画 - スマホ時は縦向きに、間隔を調整
       if (isMobile) {
-        drawArrow(ctx, chartCenterX, chartCenterY + 70, scheduleCenterX, scheduleCenterY - 90)
+        drawArrow(ctx, chartCenterX, chartCenterY + 60, scheduleCenterX, scheduleCenterY - 80)
       } else {
         drawArrow(ctx, chartCenterX + 110, chartCenterY, scheduleCenterX - 130, scheduleCenterY)
       }
