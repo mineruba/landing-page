@@ -531,9 +531,16 @@ export default function DailySchedule() {
     <section className="py-10 sm:py-16 md:py-20" id="daily-schedule">
       <div className="container mx-auto px-4">
         <div className="max-w-3xl mx-auto text-center mb-10">
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 flex items-center justify-center">
-            <span className="text-[#D4AF37] mr-2">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-4 flex flex-col md:flex-row items-center justify-center gap-2">
+            <span className="text-[#D4AF37]">
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                className="md:w-6 md:h-6"
+              >
                 <circle cx="12" cy="12" r="11" stroke="#D4AF37" strokeWidth="2" />
                 <path
                   d="M7 12L10 15L17 8"
@@ -544,10 +551,10 @@ export default function DailySchedule() {
                 />
               </svg>
             </span>
-            <span className="gold-text-luxe">毎日の学習を継続するためにサポートします</span>
+            <span className="gold-text-luxe text-center">毎日の学習を継続するためにサポートします</span>
           </h2>
           <div className="w-20 h-1 bg-gold-gradient mx-auto mb-8"></div>
-          <p className="text-base sm:text-lg md:text-xl leading-relaxed">
+          <p className="text-sm sm:text-base md:text-lg lg:text-xl leading-relaxed">
             大学受験の成功には、いかに多くの学習時間を確保し、継続して学習をすることが重要です。Minervaでは
             <span className="text-luxe">あなたの生活習慣にまで踏み込んだ緻密な学習スケジュール</span>を立て、
             <span className="text-luxe">どんな人でも"サボらせない"コーチング</span>を提供します。
@@ -555,27 +562,27 @@ export default function DailySchedule() {
           </p>
         </div>
 
-        <div className="bg-black/70 backdrop-blur-sm border border-gray-800 rounded-lg p-3 sm:p-4 md:p-6 overflow-hidden max-w-[95vw] md:max-w-5xl mx-auto shadow-lg shadow-black/50">
-          <h3 className="text-lg sm:text-xl font-bold mb-6 text-center flex items-center justify-center">
-            <span className="w-6 h-0.5 bg-[#D4AF37] mr-2"></span>
+        <div className="bg-black/70 backdrop-blur-sm border border-gray-800 rounded-lg p-3 sm:p-4 md:p-6 overflow-hidden max-w-[95vw] md:max-w-5xl mx-auto shadow-lg shadow-black/50 min-h-[600px] md:min-h-0">
+          <h3 className="text-base sm:text-lg md:text-xl font-bold mb-6 text-center flex flex-col md:flex-row items-center justify-center gap-2 py-2">
+            <span className="w-6 h-0.5 bg-[#D4AF37]"></span>
             <span className="gold-text-luxe">1日の学習スケジュール例</span>
           </h3>
 
-          <div className="relative max-w-3xl mx-auto">
+          <div className="relative max-w-3xl mx-auto py-6 md:py-0">
             <canvas
               ref={canvasRef}
-              className="w-full max-w-[90vw] md:max-w-full mx-auto object-contain"
+              className="w-[90%] md:w-full max-w-[90vw] md:max-w-full mx-auto object-contain"
               style={{
                 height: canvasHeight,
                 maxWidth: "100%",
-                aspectRatio: "1 / 1.2", // アスペクト比を保持
+                aspectRatio: "1 / 1.2",
               }}
             />
           </div>
         </div>
 
-        <div className="mt-8 text-center max-w-3xl mx-auto">
-          <p className="text-base sm:text-lg leading-relaxed">
+        <div className="mt-8 text-center max-w-3xl mx-auto py-4">
+          <p className="text-sm sm:text-base md:text-lg leading-relaxed">
             Minervaでは、<span className="text-luxe">あなたの生活リズムに合わせた学習計画</span>を提案します。
             忙しい日々の中でも確実に学習時間を確保し、効率的に学習を進めることができます。 また、
             <span className="text-luxe">AIを活用した学習管理システム</span>により、

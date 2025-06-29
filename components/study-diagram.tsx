@@ -242,39 +242,38 @@ export default function StudyDiagram() {
     <section className="py-10 sm:py-16 md:py-20" id="study-diagram">
       <div className="container mx-auto px-4">
         <div className="max-w-3xl mx-auto text-center mb-10">
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4">
+          <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-4">
             <span className="gold-text-luxe">学習メソッド</span>
           </h2>
           <div className="w-20 h-1 bg-gold-gradient mx-auto mb-8"></div>
-          <p className="text-base sm:text-lg md:text-xl leading-relaxed">
+          <p className="text-sm sm:text-base md:text-lg lg:text-xl leading-relaxed">
             Minervaでは一人ひとりの学力を分析し、最適な学習プランを提供します
           </p>
         </div>
 
-        <div className="bg-black/70 backdrop-blur-sm border border-gray-800 rounded-lg p-3 sm:p-4 md:p-6 overflow-hidden max-w-[95vw] md:max-w-4xl mx-auto">
-          <h3 className="text-lg sm:text-xl font-bold mb-6 text-center">
+        <div className="bg-black/70 backdrop-blur-sm border border-gray-800 rounded-lg p-3 sm:p-4 md:p-6 overflow-hidden max-w-[95vw] md:max-w-4xl mx-auto min-h-[500px] md:min-h-0">
+          <h3 className="text-base sm:text-lg md:text-xl font-bold mb-6 text-center py-2">
             <span className="gold-text-luxe">1日の学習メニュー例</span>
           </h3>
 
-          <div className="relative">
-            {/* 人物アイコンを表示していた div 要素を削除 */}
+          <div className="relative py-4 md:py-0">
             <canvas
               ref={canvasRef}
-              className="w-full max-w-[95vw] md:max-w-full mx-auto object-contain"
+              className="w-[90%] md:w-full max-w-[90vw] md:max-w-full mx-auto object-contain"
               style={{ height: canvasHeight }}
             />
           </div>
         </div>
 
-        <div className="mt-8 text-center max-w-3xl mx-auto">
-          <p className="text-base sm:text-lg leading-relaxed">
+        <div className="mt-8 text-center max-w-3xl mx-auto py-4">
+          <p className="text-sm sm:text-base md:text-lg leading-relaxed mb-2">
             大学受験において重要なことは、<span className="text-luxe">自分の弱点を正確に把握し</span>、
             それに合わせた学習計画を
           </p>
-          <p className="text-base sm:text-lg leading-relaxed">
+          <p className="text-sm sm:text-base md:text-lg leading-relaxed mb-2">
             立てることです。Minervaでは、AIを活用した分析と講師の経験を組み合わせ
           </p>
-          <p className="text-base sm:text-lg leading-relaxed">
+          <p className="text-sm sm:text-base md:text-lg leading-relaxed">
             <span className="text-luxe">一人ひとりに最適化された学習プラン</span>を提供します。
           </p>
         </div>
