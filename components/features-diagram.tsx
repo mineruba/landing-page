@@ -35,8 +35,8 @@ export default function FeaturesDiagram() {
     const isMobile = width < 640
 
     // フォントサイズをレスポンシブに調整
-    const titleFontSize = isMobile ? "14px" : "18px"
-    const textFontSize = isMobile ? "12px" : "14px"
+    const titleFontSize = isMobile ? "10px" : "18px" // 14px → 10px に変更
+    const textFontSize = isMobile ? "9px" : "14px" // 12px → 9px に変更
 
     // 中央の円の半径を画面サイズに応じて調整
     const centerRadius = Math.min(width, height) * (isMobile ? 0.12 : 0.15)
@@ -81,7 +81,7 @@ export default function FeaturesDiagram() {
     ctx.textBaseline = "middle"
     ctx.fillText("Minerva", centerX, centerY)
     ctx.font = `${textFontSize} 'Noto Serif JP', serif` // 12pxから14pxに変更
-    ctx.fillText("学習メソッド", centerX, centerY + 22) // 位置も少し調整
+    ctx.fillText("学習メソッド", centerX, centerY + (isMobile ? 16 : 22)) // スマホ時は16pxに調整
 
     // 周囲の特徴（5つ）
     const features = [
@@ -141,7 +141,7 @@ export default function FeaturesDiagram() {
       // 改行対応
       const lines = feature.name.split("\n")
       lines.forEach((line, index) => {
-        const lineY = y + (index - (lines.length - 1) / 2) * 18 // 行間も16pxから18pxに調整
+        const lineY = y + (index - (lines.length - 1) / 2) * (isMobile ? 14 : 18) // スマホ時は14pxに調整
         ctx.fillText(line, x, lineY)
       })
     })

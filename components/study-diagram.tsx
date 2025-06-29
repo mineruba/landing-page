@@ -8,7 +8,7 @@ export default function StudyDiagram() {
 
   useEffect(() => {
     const updateHeight = () => {
-      setCanvasHeight(window.innerWidth < 640 ? "180px" : "300px")
+      setCanvasHeight(window.innerWidth < 640 ? "400px" : "300px") // スマホ時は縦長に
     }
 
     updateHeight()
@@ -34,18 +34,29 @@ export default function StudyDiagram() {
     // 背景を透明に
     ctx.clearRect(0, 0, rect.width, rect.height)
 
-    // 左側のレーダーチャートを描画 - サイズを大きく
-    drawRadarChart(ctx, rect.width * 0.3, rect.height / 2)
+    // レーダーチャートを描画 - スマホ時は上部に配置
+    const isMobile = rect.width < 640
+    const chartCenterX = isMobile ? rect.width / 2 : rect.width * 0.3
+    const chartCenterY = isMobile ? rect.height * 0.3 : rect.height / 2
 
-    // 右側の学習スケジュールを描画 - サイズを大きく
-    drawStudySchedule(ctx, rect.width * 0.7, rect.height / 2)
+    drawRadarChart(ctx, chartCenterX, chartCenterY)
 
-    // 矢印を描画
-    drawArrow(ctx, rect.width * 0.3 + 110, rect.height / 2, rect.width * 0.7 - 130, rect.height / 2)
+    // 学習スケジュールを描画 - スマホ時は下部に配置
+    const scheduleCenterX = isMobile ? rect.width / 2 : rect.width * 0.7
+    const scheduleCenterY = isMobile ? rect.height * 0.7 : rect.height / 2
 
-    // タイトルを描画
-    drawTitle(ctx, rect.width * 0.3, 10, "あなたの学力レベル")
-    drawTitle(ctx, rect.width * 0.7, 10, "あなたに最適な学習方法")
+    drawStudySchedule(ctx, scheduleCenterX, scheduleCenterY)
+
+    // 矢印を描画 - スマホ時は縦向きに
+    if (isMobile) {
+      drawArrow(ctx, chartCenterX, chartCenterY + 85, scheduleCenterX, scheduleCenterY - 100)
+    } else {
+      drawArrow(ctx, chartCenterX + 110, chartCenterY, scheduleCenterX - 130, scheduleCenterY)
+    }
+
+    // タイトルを描画 - スマホ時は位置調整
+    drawTitle(ctx, chartCenterX, isMobile ? 20 : 10, "あなたの学力レベル")
+    drawTitle(ctx, scheduleCenterX, isMobile ? rect.height * 0.5 + 20 : 10, "あなたに最適な学習方法")
 
     // 下部のテキスト
     drawBottomText(ctx, rect.width / 2, rect.height - 15)

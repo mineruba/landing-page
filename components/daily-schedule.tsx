@@ -9,11 +9,11 @@ export default function DailySchedule() {
   useEffect(() => {
     const updateHeight = () => {
       if (window.innerWidth < 640) {
-        setCanvasHeight("600px") // スマホで高さを削減
+        setCanvasHeight("700px") // スマホで高さを増加してラベルが切れないように
       } else if (window.innerWidth < 1024) {
-        setCanvasHeight("750px") // タブレットで中間の高さ
+        setCanvasHeight("750px")
       } else {
-        setCanvasHeight("900px") // PC表示
+        setCanvasHeight("900px")
       }
     }
 
@@ -71,10 +71,11 @@ export default function DailySchedule() {
       { name: "自由時間・就寝準備", hours: 4.75, color: luxeColors.mediumGray },
     ]
 
-    // 円グラフの中心と半径
+    // 円グラフの中心と半径 - スマホ時は正円になるように調整
+    const isMobile = width < 640
     const centerX = width / 2
-    const centerY = height / 2 - 70 // より上に配置して下部に余裕を持たせる
-    const radius = Math.min(width * 0.9, height * 0.6) * 0.4 // グラフサイズを調整して背景枠に合わせる
+    const centerY = isMobile ? height / 3 : height / 2 - 70 // スマホ時は上部に配置
+    const radius = isMobile ? Math.min(width * 0.35, 120) : Math.min(width * 0.9, height * 0.6) * 0.4 // スマホ時は固定サイズで正円に
 
     // 円グラフの背景（黒い円）
     ctx.beginPath()
@@ -201,12 +202,12 @@ export default function DailySchedule() {
         const bgWidth = Math.max(...lines.map((line) => ctx.measureText(line).width)) + bgPadding * 3 // パディングを増やして文字が見切れないようにする
         const bgHeight = lines.length * lineHeight + bgPadding * 2
 
-        // 外側のラベル位置を計算
-        let labelDistance = radius * 1.25 // グラフの横幅を調整して背景枠に合わせる
+        // 外側のラベル位置を計算 - スマホ時は距離を調整
+        let labelDistance = isMobile ? radius * 1.6 : radius * 1.25
 
-        // 「就寝」ラベルの場合、時間と被らないように少し離す
+        // 「就寝」ラベルの場合の調整もスマホ対応
         if (slot.name === "就寝" || slot.name === "登校・授業") {
-          labelDistance = radius * 1.4 // 距離を増やして時間と被らないようにする
+          labelDistance = isMobile ? radius * 1.8 : radius * 1.4
         }
 
         const labelX = centerX + labelDistance * Math.cos(angle)
