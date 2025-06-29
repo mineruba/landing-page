@@ -41,7 +41,7 @@ export default function StudyDiagram() {
 
       // レーダーチャートを描画 - スマホ時は上部に配置、余白を追加
       const chartCenterX = isMobile ? width / 2 : width * 0.3
-      const chartCenterY = isMobile ? height * 0.3 : height / 2
+      const chartCenterY = isMobile ? height * 0.25 : height / 2
 
       drawRadarChart(ctx, chartCenterX, chartCenterY)
 
@@ -53,7 +53,7 @@ export default function StudyDiagram() {
 
       // 矢印を描画 - スマホ時は縦向きに、間隔を調整
       if (isMobile) {
-        drawArrow(ctx, chartCenterX, chartCenterY + 60, scheduleCenterX, scheduleCenterY - 80)
+        drawArrow(ctx, chartCenterX, chartCenterY + 80, scheduleCenterX, scheduleCenterY - 100)
       } else {
         drawArrow(ctx, chartCenterX + 110, chartCenterY, scheduleCenterX - 130, scheduleCenterY)
       }
@@ -251,14 +251,18 @@ export default function StudyDiagram() {
           </p>
         </div>
 
-        <div className="bg-black/70 backdrop-blur-sm border border-gray-800 rounded-lg p-3 sm:p-4 md:p-6 overflow-hidden max-w-4xl mx-auto">
+        <div className="bg-black/70 backdrop-blur-sm border border-gray-800 rounded-lg p-3 sm:p-4 md:p-6 overflow-hidden max-w-[95vw] md:max-w-4xl mx-auto">
           <h3 className="text-lg sm:text-xl font-bold mb-6 text-center">
             <span className="gold-text-luxe">1日の学習メニュー例</span>
           </h3>
 
           <div className="relative">
             {/* 人物アイコンを表示していた div 要素を削除 */}
-            <canvas ref={canvasRef} className="w-full mx-auto" style={{ height: canvasHeight }} />
+            <canvas
+              ref={canvasRef}
+              className="w-full max-w-[95vw] md:max-w-full mx-auto object-contain"
+              style={{ height: canvasHeight }}
+            />
           </div>
         </div>
 

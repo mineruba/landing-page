@@ -74,9 +74,9 @@ export default function DailySchedule() {
     // 円グラフの中心と半径 - スマホ時は正円になるように調整
     const isMobile = width < 768
     const centerX = width / 2
-    const centerY = isMobile ? height / 3.5 : height / 2 - 70
+    const centerY = isMobile ? height / 4 : height / 2 - 70
     // 正円を保つため、幅と高さの最小値を使用
-    const radius = isMobile ? Math.min(width * 0.2, 70) : Math.min(width * 0.9, height * 0.6) * 0.4
+    const radius = isMobile ? Math.min(width * 0.25, 80) : Math.min(width * 0.9, height * 0.6) * 0.4
 
     // 円グラフの背景（黒い円）
     ctx.beginPath()
@@ -249,8 +249,8 @@ export default function DailySchedule() {
         // テキストを描画 - スマホ時はフォントサイズを小さく
         ctx.fillStyle = textColor
         ctx.font = slot.isStudy
-          ? `bold ${isMobile ? "7px" : "11px"} 'Noto Serif JP', serif`
-          : `${isMobile ? "7px" : "11px"} 'Noto Serif JP', serif`
+          ? `bold ${isMobile ? "8px" : "11px"} 'Noto Serif JP', serif`
+          : `${isMobile ? "8px" : "11px"} 'Noto Serif JP', serif`
         ctx.textAlign = "center"
         ctx.textBaseline = "middle"
 
@@ -346,7 +346,7 @@ export default function DailySchedule() {
       }
 
       ctx.fillStyle = "#ffffff"
-      ctx.font = slot.isStudy ? "bold 11px 'Noto Serif JP', serif" : "11px 'Noto Serif JP', serif"
+      ctx.font = slot.isStudy ? "bold 12px 'Noto Serif JP', serif" : "12px 'Noto Serif JP', serif"
       ctx.textAlign = "left"
       ctx.textBaseline = "middle"
       ctx.fillText(itemText, itemX + 30, itemY + 10)
@@ -555,14 +555,22 @@ export default function DailySchedule() {
           </p>
         </div>
 
-        <div className="bg-black/70 backdrop-blur-sm border border-gray-800 rounded-lg p-3 sm:p-4 md:p-6 overflow-hidden max-w-5xl mx-auto shadow-lg shadow-black/50">
+        <div className="bg-black/70 backdrop-blur-sm border border-gray-800 rounded-lg p-3 sm:p-4 md:p-6 overflow-hidden max-w-[95vw] md:max-w-5xl mx-auto shadow-lg shadow-black/50">
           <h3 className="text-lg sm:text-xl font-bold mb-6 text-center flex items-center justify-center">
             <span className="w-6 h-0.5 bg-[#D4AF37] mr-2"></span>
             <span className="gold-text-luxe">1日の学習スケジュール例</span>
           </h3>
 
           <div className="relative max-w-3xl mx-auto">
-            <canvas ref={canvasRef} className="w-full mx-auto" style={{ height: canvasHeight, maxWidth: "100%" }} />
+            <canvas
+              ref={canvasRef}
+              className="w-full max-w-[90vw] md:max-w-full mx-auto object-contain"
+              style={{
+                height: canvasHeight,
+                maxWidth: "100%",
+                aspectRatio: "1 / 1.2", // アスペクト比を保持
+              }}
+            />
           </div>
         </div>
 

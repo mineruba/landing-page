@@ -187,16 +187,19 @@ export default function FeaturesDiagram() {
           <span className="gold-text-luxe">Minervaの学習メソッド図解</span>
         </h3>
 
-        <div className="flex flex-col lg:flex-row gap-6 lg:gap-8 items-center">
+        <div className="flex flex-col lg:flex-row gap-6 lg:gap-8 items-center max-w-[95vw] md:max-w-full mx-auto">
           {/* 図解部分 */}
-          <div className="relative w-full lg:w-1/2">
-            <canvas ref={canvasRef} className="w-full mx-auto h-[200px] sm:h-[250px] md:h-[400px] lg:h-[500px]" />
+          <div className="relative w-full lg:w-1/2 flex justify-center">
+            <canvas
+              ref={canvasRef}
+              className="w-full max-w-[95vw] md:max-w-full mx-auto h-[200px] sm:h-[250px] md:h-[400px] lg:h-[500px] object-contain"
+            />
           </div>
 
           {/* 表部分 */}
-          <div className="lg:w-1/2">
+          <div className="lg:w-1/2 w-full max-w-[95vw] md:max-w-full mx-auto">
             <div className="overflow-x-auto">
-              <table className="w-full border-collapse">
+              <table className="w-full border-collapse min-w-[300px]">
                 <thead>
                   <tr className="border-b border-gray-800">
                     <th className="py-3 px-4 text-left text-luxe-light">特徴</th>
