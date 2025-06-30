@@ -189,16 +189,17 @@ export default function FeaturesDiagram() {
         </h3>
 
         <div className="flex flex-col lg:flex-row gap-6 lg:gap-8 items-center py-4 md:py-0 min-h-[400px] md:min-h-0">
-          {/* 図解部分 */}
+          {/* 図解部分 - スマホ用中央寄せと余白追加 */}
           <div className="relative w-full lg:w-1/2 flex justify-center py-4 md:py-0">
             <canvas
               ref={canvasRef}
-              className="w-full max-w-full mx-auto h-[200px] sm:h-[250px] md:h-[400px] lg:h-[500px] object-contain"
+              className="w-full max-w-full mx-auto h-[200px] sm:h-[250px] md:h-[400px] lg:h-[500px] object-contain block"
+              style={{ margin: "0 auto", display: "block" }}
             />
           </div>
 
           {/* 表部分 */}
-          <div className="lg:w-1/2 w-[90%] md:w-full max-w-[90vw] md:max-w-full mx-auto py-4 md:py-0">
+          <div className="lg:w-1/2 w-[90%] md:w-full max-w-[90vw] md:max-w-full mx-auto py-4 md:py-0 mt-12 md:mt-0">
             <div className="overflow-x-auto">
               <table className="w-full border-collapse min-w-[280px] text-sm md:text-base">
                 <thead>
@@ -254,7 +255,7 @@ export default function FeaturesDiagram() {
           </div>
         </div>
 
-        <div className="mt-4 text-center text-xs md:text-sm text-gray-400 py-2">
+        <div className="mt-12 md:mt-4 text-center text-xs md:text-sm text-gray-400 py-2 px-4 md:px-0">
           ※ Minervaの特徴的な学習メソッドが相互に作用し、効果的な学習環境を実現します
         </div>
       </div>

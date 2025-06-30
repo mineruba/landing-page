@@ -264,8 +264,31 @@ html {
   #features canvas,
   #study-diagram canvas,
   #daily-schedule canvas {
-    margin: 0 auto;
-    display: block;
+    margin: 0 auto !important;
+    display: block !important;
+    visibility: visible !important;
+  }
+
+  /* 図解と表の間の余白 */
+  #features .flex > div:first-child {
+    margin-bottom: 3rem;
+  }
+
+  /* 円グラフの幅制限と中央寄せ */
+  #daily-schedule canvas {
+    width: 85% !important;
+    max-width: 85vw !important;
+    margin-bottom: 40px !important;
+  }
+
+  /* 凡例の縦並び調整 */
+  .legend-container {
+    flex-direction: column;
+  }
+
+  .legend-item {
+    margin-bottom: 8px;
+    padding: 8px 0;
   }
 
   /* テキストの読みやすさ向上 */
@@ -291,6 +314,13 @@ html {
     margin-left: auto !important;
     margin-right: auto !important;
     display: block !important;
+  }
+
+  /* 解説文の左右余白と中央寄せ */
+  section:last-child .text-center {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+    text-align: center;
   }
 }
 

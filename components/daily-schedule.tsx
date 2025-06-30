@@ -74,12 +74,12 @@ export default function DailySchedule() {
       { name: "自由時間・就寝準備", hours: 4.75, color: luxeColors.mediumGray },
     ]
 
-    // 円グラフの中心と半径
+    // 円グラフの中心と半径 - スマホ時の幅制限を80-90%に
     const centerX = width / 2
     const centerY = isMobile ? height / 4 : height / 2 - 70
 
-    // スマホ時は画面幅の25%、PC時は従来通り
-    const radius = isMobile ? Math.min(width * 0.25, height * 0.12) : Math.min(width * 0.9, height * 0.6) * 0.4
+    // スマホ時は画面幅の20%（80-90%制限内）、PC時は従来通り
+    const radius = isMobile ? Math.min(width * 0.2, height * 0.1) : Math.min(width * 0.9, height * 0.6) * 0.4
 
     // 円グラフの背景（黒い円）
     ctx.beginPath()
@@ -297,18 +297,18 @@ export default function DailySchedule() {
       }
     }
 
-    // 凡例を描画 - 位置を上に調整
-    const legendY = isMobile ? height / 2 + radius + 150 : height / 2 + radius + 160
+    // 凡例を描画 - スマホ時は縦並びに変更
+    const legendY = isMobile ? height / 2 + radius + 100 : height / 2 + radius + 160
 
     const legendWidth = width * 0.8
     const legendX = width / 2 - legendWidth / 2
-    const legendItemHeight = 30
-    const legendItemsPerRow = isMobile ? 1 : 2 // スマホ時は1列表示
-    const legendItemWidth = legendWidth / legendItemsPerRow
+    const legendItemHeight = isMobile ? 40 : 30 // スマホ時は高さを増加
+    const legendItemsPerRow = 1 // 常に1列表示（縦並び）
+    const legendItemWidth = legendWidth
 
     // 凡例の背景
     const legendBgWidth = legendWidth + 60
-    const legendBgHeight = Math.ceil(timeSlots.length / legendItemsPerRow) * legendItemHeight + 100 // 80から100に増加
+    const legendBgHeight = timeSlots.length * legendItemHeight + 100
 
     ctx.fillStyle = "rgba(0, 0, 0, 0.5)"
     roundRect(ctx, legendX - legendBgWidth / 2, legendY - 40, legendBgWidth, legendBgHeight, 8)
@@ -324,14 +324,12 @@ export default function DailySchedule() {
     ctx.font = "bold 16px 'Noto Serif JP', serif"
     ctx.textAlign = "center"
     ctx.textBaseline = "middle"
-    ctx.fillText("時間の内訳", width / 2, legendY - 30) // -20から-30に変更して上に移動
+    ctx.fillText("時間の内訳", width / 2, legendY - 30)
 
-    // 凡例の項目を描画
+    // 凡例の項目を描画 - 縦並びで余白を追加
     timeSlots.forEach((slot, index) => {
-      const row = Math.floor(index / legendItemsPerRow)
-      const col = index % legendItemsPerRow
-      const itemX = legendX + col * legendItemWidth
-      const itemY = legendY + row * legendItemHeight
+      const itemX = legendX
+      const itemY = legendY + index * legendItemHeight
 
       // 色のサンプル
       ctx.fillStyle = slot.color
@@ -571,20 +569,23 @@ export default function DailySchedule() {
             <span className="gold-text-luxe">1日の学習スケジュール例</span>
           </h3>
 
-          <div className="relative max-w-3xl mx-auto py-8 md:py-0">
+          <div className="relative max-w-3xl mx-auto py-8 md:py-0 mb-10 md:mb-0">
             <canvas
               ref={canvasRef}
-              className="w-[95%] md:w-full max-w-[95vw] md:max-w-full mx-auto object-contain"
+              className="w-[85%] md:w-full max-w-[85vw] md:max-w-full mx-auto object-contain block"
               style={{
                 height: canvasHeight,
                 maxWidth: "100%",
                 aspectRatio: isMobile ? "1 / 1.4" : "1 / 1.2",
+                margin: "0 auto",
+                display: "block",
+                marginBottom: isMobile ? "40px" : "0",
               }}
             />
           </div>
         </div>
 
-        <div className="mt-8 text-center max-w-3xl mx-auto py-4">
+        <div className="mt-8 text-center max-w-3xl mx-auto py-4 px-6 md:px-0">
           <p className="text-sm sm:text-base md:text-lg leading-relaxed">
             Minervaでは、<span className="text-luxe">あなたの生活リズムに合わせた学習計画</span>を提案します。
             忙しい日々の中でも確実に学習時間を確保し、効率的に学習を進めることができます。 また、

@@ -263,8 +263,13 @@ export default function StudyDiagram() {
           <div className="relative py-4 md:py-0">
             <canvas
               ref={canvasRef}
-              className="w-[90%] md:w-full max-w-[90vw] md:max-w-full mx-auto object-contain"
-              style={{ height: canvasHeight }}
+              className="w-[90%] md:w-full max-w-[90vw] md:max-w-full mx-auto object-contain block"
+              style={{
+                height: canvasHeight,
+                margin: "0 auto",
+                display: "block",
+                visibility: "visible",
+              }}
             />
           </div>
         </div>
