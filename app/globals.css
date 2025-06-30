@@ -251,3 +251,53 @@ html {
 .pulse-gold {
   animation: pulse-gold 3s infinite;
 }
+
+/* スマホ表示の最適化 */
+@media (max-width: 767px) {
+  /* セクション間の余白調整 */
+  section {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+  }
+
+  /* 図解セクションの調整 */
+  #features canvas,
+  #study-diagram canvas,
+  #daily-schedule canvas {
+    margin: 0 auto;
+    display: block;
+  }
+
+  /* テキストの読みやすさ向上 */
+  .text-sm {
+    font-size: 0.875rem;
+    line-height: 1.5;
+  }
+
+  /* コンテナの余白調整 */
+  .container {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  /* 図解コンテナの調整 */
+  .bg-black\/70 {
+    padding: 1rem;
+    margin: 0 auto;
+  }
+
+  /* キャンバス要素の中央配置強化 */
+  canvas {
+    margin-left: auto !important;
+    margin-right: auto !important;
+    display: block !important;
+  }
+}
+
+/* タブレット表示の調整 */
+@media (min-width: 768px) and (max-width: 1023px) {
+  section {
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+  }
+}

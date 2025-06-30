@@ -57,14 +57,16 @@ export default function FAQ() {
   }
 
   return (
-    <section className="py-20 md:py-28" id="faq">
+    <section className="py-12 sm:py-20 md:py-28" id="faq">
       <div className="container mx-auto px-4">
         <div className="max-w-3xl mx-auto text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4">
             <span className="gold-text-luxe">よくある質問</span>
           </h2>
           <div className="w-20 h-1 bg-gold-gradient mx-auto mb-8"></div>
-          <p className="text-lg md:text-xl leading-relaxed">大学受験Minervaに関するよくある質問と回答をまとめました</p>
+          <p className="text-base sm:text-lg md:text-xl leading-relaxed">
+            大学受験Minervaに関するよくある質問と回答をまとめました
+          </p>
         </div>
 
         <div className="max-w-3xl mx-auto">
@@ -76,9 +78,9 @@ export default function FAQ() {
               >
                 <button
                   onClick={() => toggleFAQ(index)}
-                  className="flex justify-between w-full p-6 text-left bg-black/70 hover:bg-black/90 transition"
+                  className="flex justify-between w-full p-4 sm:p-5 md:p-6 text-left bg-black/70 hover:bg-black/90 transition"
                 >
-                  <span className="text-lg font-medium">{faq.question}</span>
+                  <span className="text-base sm:text-lg font-medium">{faq.question}</span>
                   <ChevronDown
                     className={`w-5 h-5 text-luxe transform transition-transform ${
                       openIndex === index ? "rotate-180" : ""
@@ -86,7 +88,7 @@ export default function FAQ() {
                   />
                 </button>
                 {openIndex === index && (
-                  <div className="px-6 py-4 bg-gray-900/30">
+                  <div className="px-4 py-3 sm:px-6 sm:py-4 bg-gray-900/30">
                     <p className="text-gray-300">{faq.answer}</p>
                   </div>
                 )}
