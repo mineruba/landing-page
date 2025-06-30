@@ -34,13 +34,13 @@ export default function FeaturesDiagram() {
     // スマホかどうかを判定
     const isMobile = width < 768
 
-    // キャンバス全体のサイズを調整 - スマホ時は中央配置を重視
+    // キャンバス全体のサイズを調整 - スマホ時の縮小率を強化
     const canvasSize = Math.min(width, height)
-    const scaleFactor = isMobile ? 0.85 : 1.0 // スマホ時の縮小率を調整
+    const scaleFactor = isMobile ? 0.7 : 1.0 // 0.85から0.7に変更
 
-    // フォントサイズをスマホ用に最適化
-    const titleFontSize = isMobile ? "8px" : "18px"
-    const textFontSize = isMobile ? "6px" : "14px"
+    // フォントサイズをスマホ用により小さく調整
+    const titleFontSize = isMobile ? "6px" : "18px" // 8pxから6pxに変更
+    const textFontSize = isMobile ? "5px" : "14px" // 6pxから5pxに変更
 
     // 中央の円の半径をスマホ時に適切なサイズに
     const centerRadius = canvasSize * (isMobile ? 0.08 : 0.15) * scaleFactor
@@ -193,8 +193,12 @@ export default function FeaturesDiagram() {
           <div className="relative w-full lg:w-1/2 flex justify-center py-4 md:py-0">
             <canvas
               ref={canvasRef}
-              className="w-full max-w-full mx-auto h-[200px] sm:h-[250px] md:h-[400px] lg:h-[500px] object-contain block"
-              style={{ margin: "0 auto", display: "block" }}
+              className="w-[90vw] md:w-full max-w-[90vw] md:max-w-full mx-auto h-[200px] sm:h-[250px] md:h-[400px] lg:h-[500px] object-contain block"
+              style={{
+                margin: "0 auto",
+                display: "block",
+                maxHeight: window.innerWidth < 768 ? "300px" : "500px",
+              }}
             />
           </div>
 

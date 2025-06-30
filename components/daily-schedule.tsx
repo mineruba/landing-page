@@ -201,7 +201,7 @@ export default function DailySchedule() {
       if (sliceAngle > 0.2) {
         const labelText = slot.isStudy ? `${slot.name}\n${slot.minutes}分` : slot.name
         const lines = labelText.split("\n")
-        const lineHeight = isMobile ? 12 : 16
+        const lineHeight = isMobile ? 10 : 16 // スマホ時の行間を狭く
         const bgPadding = isMobile ? 4 : 6
         const bgWidth = Math.max(...lines.map((line) => ctx.measureText(line).width)) + bgPadding * 3
         const bgHeight = lines.length * lineHeight + bgPadding * 2
@@ -252,8 +252,8 @@ export default function DailySchedule() {
         // テキストを描画 - スマホ時はフォントサイズを調整
         ctx.fillStyle = textColor
         ctx.font = slot.isStudy
-          ? `bold ${isMobile ? "8px" : "11px"} 'Noto Serif JP', serif`
-          : `${isMobile ? "8px" : "11px"} 'Noto Serif JP', serif`
+          ? `bold ${isMobile ? "7px" : "11px"} 'Noto Serif JP', serif` // 8pxから7pxに
+          : `${isMobile ? "7px" : "11px"} 'Noto Serif JP', serif` // 8pxから7pxに
         ctx.textAlign = "center"
         ctx.textBaseline = "middle"
 
@@ -572,14 +572,15 @@ export default function DailySchedule() {
           <div className="relative max-w-3xl mx-auto py-8 md:py-0 mb-10 md:mb-0">
             <canvas
               ref={canvasRef}
-              className="w-[85%] md:w-full max-w-[85vw] md:max-w-full mx-auto object-contain block"
+              className="w-[90vw] md:w-full max-w-[90vw] md:max-w-full mx-auto object-contain block"
               style={{
                 height: canvasHeight,
                 maxWidth: "100%",
-                aspectRatio: isMobile ? "1 / 1.4" : "1 / 1.2",
+                aspectRatio: isMobile ? "1 / 1" : "1 / 1.2", // スマホ時は正方形に
                 margin: "0 auto",
                 display: "block",
                 marginBottom: isMobile ? "40px" : "0",
+                maxHeight: isMobile ? "90vw" : "auto", // スマホ時の最大高さ制限
               }}
             />
           </div>
