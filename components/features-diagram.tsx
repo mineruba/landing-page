@@ -36,11 +36,11 @@ export default function FeaturesDiagram() {
 
     // キャンバス全体のサイズを調整 - スマホ時の縮小率を強化
     const canvasSize = Math.min(width, height)
-    const scaleFactor = isMobile ? 0.7 : 1.0 // 0.85から0.7に変更
+    const scaleFactor = isMobile ? 1.05: 1.5 // 0.85から0.7に変更
 
     // フォントサイズをスマホ用により小さく調整
-    const titleFontSize = isMobile ? "6px" : "18px" // 8pxから6pxに変更
-    const textFontSize = isMobile ? "5px" : "14px" // 6pxから5pxに変更
+    const titleFontSize = isMobile ? "3px" : "18px" // 8pxから6pxに変更
+    const textFontSize = isMobile ? "2px" : "14px" // 6pxから5pxに変更
 
     // 中央の円の半径をスマホ時に適切なサイズに
     const centerRadius = canvasSize * (isMobile ? 0.08 : 0.15) * scaleFactor
