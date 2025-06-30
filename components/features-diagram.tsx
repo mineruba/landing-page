@@ -32,15 +32,15 @@ export default function FeaturesDiagram() {
   // 図解を描画する関数
   const drawDiagram = (ctx: CanvasRenderingContext2D, width: number, height: number) => {
     // スマホかどうかを判定
-    const isMobile = width < 768
+    const isMobile = width < 640
 
-    // キャンバス全体のサイズを調整 - スマホ時の縮小率を強化
+    // キャンバス全体のサイズを調整 - スマホ時は中央配置を重視
     const canvasSize = Math.min(width, height)
-    const scaleFactor = isMobile ? 1.05: 1.5 // 0.85から0.7に変更
+    const scaleFactor = isMobile ? 0.7 : 1.0 // 0.85から0.7に変更
 
-    // フォントサイズをスマホ用により小さく調整
-    const titleFontSize = isMobile ? "3px" : "18px" // 8pxから6pxに変更
-    const textFontSize = isMobile ? "2px" : "14px" // 6pxから5pxに変更
+    // フォントサイズをスマホ用に最適化
+    const titleFontSize = isMobile ? "10px" : "18px"
+    const textFontSize = isMobile ? "10px" : "14px"
 
     // 中央の円の半径をスマホ時に適切なサイズに
     const centerRadius = canvasSize * (isMobile ? 0.08 : 0.15) * scaleFactor
@@ -79,11 +79,11 @@ export default function FeaturesDiagram() {
 
     // 中央のテキスト
     ctx.fillStyle = "#000"
-    ctx.font = `bold ${titleFontSize} 'Noto Serif JP', serif`
+    ctx.font = `bold ${titleFontSize} sans-serif`
     ctx.textAlign = "center"
     ctx.textBaseline = "middle"
     ctx.fillText("Minerva", centerX, centerY)
-    ctx.font = `${textFontSize} 'Noto Serif JP', serif`
+    ctx.font = `${textFontSize} sans-serif`
     ctx.fillText("学習メソッド", centerX, centerY + (isMobile ? 8 : 22))
 
     // 周囲の特徴（5つ）
@@ -138,7 +138,7 @@ export default function FeaturesDiagram() {
 
       // 特徴のテキスト
       ctx.fillStyle = "#fff"
-      ctx.font = `bold ${textFontSize} 'Noto Serif JP', serif`
+      ctx.font = `bold ${textFontSize} sans-serif`
       ctx.textAlign = "center"
       ctx.textBaseline = "middle"
 
@@ -192,13 +192,9 @@ export default function FeaturesDiagram() {
           {/* 図解部分 - スマホ用中央寄せと余白追加 */}
           <div className="relative w-full lg:w-1/2 flex justify-center py-4 md:py-0">
             <canvas
+              className="w-80 h-80 sm:w-[250px] sm:h-[250px] md:w-full md:h-[400px] lg:h-[500px] mx-auto object-contain block"
               ref={canvasRef}
-              className="w-[90vw] md:w-full max-w-[90vw] md:max-w-full mx-auto h-[200px] sm:h-[250px] md:h-[400px] lg:h-[500px] object-contain block"
-              style={{
-                margin: "0 auto",
-                display: "block",
-                maxHeight: window.innerWidth < 768 ? "300px" : "500px",
-              }}
+              style={{ margin: "0 auto", display: "block" }}
             />
           </div>
 

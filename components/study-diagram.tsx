@@ -55,16 +55,16 @@ export default function StudyDiagram() {
 
       drawStudySchedule(ctx, scheduleCenterX, scheduleCenterY)
 
-      // 矢印を描画 - スマホ時は縦向きに
+      // 矢印を描画 - スマホ時は縦向きに、十分な間隔を確保
       if (isMobile) {
-        drawArrow(ctx, chartCenterX, chartCenterY + 80, scheduleCenterX, scheduleCenterY - 80)
+        drawArrow(ctx, chartCenterX, chartCenterY + 100, scheduleCenterX, scheduleCenterY - 100)
       } else {
         drawArrow(ctx, chartCenterX + 110, chartCenterY, scheduleCenterX - 130, scheduleCenterY)
       }
 
-      // タイトルを描画
-      drawTitle(ctx, chartCenterX, isMobile ? 20 : 10, "あなたの学力レベル")
-      drawTitle(ctx, scheduleCenterX, isMobile ? height * 0.5 + 20 : 10, "あなたに最適な学習方法")
+      // タイトルを描画 - スマホ時は位置調整
+      drawTitle(ctx, chartCenterX, isMobile ? 30 : 10, "あなたの学力レベル")
+      drawTitle(ctx, scheduleCenterX, isMobile ? height * 0.5 + 30 : 10, "あなたに最適な学習方法")
 
       // 下部のテキスト
       drawBottomText(ctx, width / 2, height - 15)
@@ -128,7 +128,7 @@ export default function StudyDiagram() {
       const labelX = centerX + (radius + 18) * Math.cos(angles[i])
       const labelY = centerY + (radius + 18) * Math.sin(angles[i])
       ctx.fillStyle = "#fff"
-      ctx.font = "13px 'Noto Serif JP', serif" // 12pxから13pxに拡大
+      ctx.font = window.innerWidth < 768 ? "14px 'Noto Serif JP', serif" : "13px 'Noto Serif JP', serif"
       ctx.textAlign = "center"
       ctx.textBaseline = "middle"
       ctx.fillText(categories[i], labelX, labelY)
@@ -183,7 +183,7 @@ export default function StudyDiagram() {
 
       // 項目名 - フォントサイズを大きく
       ctx.fillStyle = "#fff"
-      ctx.font = "13px 'Noto Serif JP', serif" // 12pxから13pxに拡大
+      ctx.font = window.innerWidth < 768 ? "14px 'Noto Serif JP', serif" : "13px 'Noto Serif JP', serif"
       ctx.textAlign = "left"
       ctx.textBaseline = "middle"
       ctx.fillText(item.name, x + 12, itemY + itemHeight / 2)
@@ -260,39 +260,38 @@ export default function StudyDiagram() {
             <span className="gold-text-luxe">1日の学習メニュー例</span>
           </h3>
 
-          <div className="flex flex-col lg:flex-row gap-6 lg:gap-8 items-center py-4 md:py-0 min-h-[400px] md:min-h-0">
-            {/* 図解部分 - スマホ用中央寄せと余白追加 */}
-            <div className="relative w-full lg:w-1/2 flex justify-center py-4 md:py-0" style={{marginBottom: window.innerWidth < 768 ? "24px" : "0"}}>
+          <div className="flex flex-col md:flex-row gap-6 lg:gap-8 items-center py-4 md:py-0 min-h-[700px] md:min-h-0">
+            {/* 図解部分 */}
+            <div className="relative w-full lg:w-1/2 flex justify-center py-4 md:py-0 mb-6 md:mb-0">
               <canvas
                 ref={canvasRef}
-                className="w-full max-w-full mx-auto h-[240px] md:h-[400px] lg:h-[500px] object-contain block"
-                style={{ margin: "0 auto", display: "block", maxHeight: window.innerWidth < 768 ? "240px" : "500px" }}
+                className="w-full md:w-full max-w-full md:max-w-full mx-auto object-contain block max-w-full max-h-[240px] md:max-h-none"
+                style={{
+                  height: canvasHeight,
+                  margin: "0 auto",
+                  display: "block",
+                  visibility: "visible",
+                  maxWidth: "100%",
+                  maxHeight: window.innerWidth < 768 ? "240px" : "none",
+                }}
               />
             </div>
-
-            {/* 表部分 */}
-            <div className="lg:w-1/2 w-[90%] md:w-full max-w-[90vw] md:max-w-full mx-auto py-4 md:py-0 mt-0 md:mt-0">
-              <div className="overflow-x-auto">
-                <table className="w-full border-collapse min-w-[280px] text-xs md:text-base">
-                  {/* Table content goes here */}
-                </table>
-              </div>
-            </div>
-          </div>
-
-          <div className="mt-8 text-center max-w-3xl mx-auto py-4">
-            <p className="text-sm sm:text-base md:text-lg leading-relaxed mb-2">
-              大学受験において重要なことは、<span className="text-luxe">自分の弱点を正確に把握し</span>、
-              それに合わせた学習計画を
-            </p>
-            <p className="text-sm sm:text-base md:text-lg leading-relaxed mb-2">
-              立てることです。Minervaでは、AIを活用した分析と講師の経験を組み合わせ
-            </p>
-            <p className="text-sm sm:text-base md:text-lg leading-relaxed">
-              <span className="text-luxe">一人ひとりに最適化された学習プラン</span>を提供します。
-            </p>
           </div>
         </div>
-      </section>
-  )\
+
+        <div className="mt-8 text-center max-w-3xl mx-auto py-4">
+          <p className="text-sm sm:text-base md:text-lg leading-relaxed mb-2">
+            大学受験において重要なことは、<span className="text-luxe">自分の弱点を正確に把握し</span>、
+            それに合わせた学習計画を
+          </p>
+          <p className="text-sm sm:text-base md:text-lg leading-relaxed mb-2">
+            立てることです。Minervaでは、AIを活用した分析と講師の経験を組み合わせ
+          </p>
+          <p className="text-sm sm:text-base md:text-lg leading-relaxed">
+            <span className="text-luxe">一人ひとりに最適化された学習プラン</span>を提供します。
+          </p>
+        </div>
+      </div>
+    </section>
+  )
 }

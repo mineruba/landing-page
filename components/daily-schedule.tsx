@@ -10,9 +10,9 @@ export default function DailySchedule() {
   useEffect(() => {
     const updateHeight = () => {
       const newIsMobile = window.innerWidth < 768
-      setIsMobile(newIsMobile) // Update isMobile state
+      setIsMobile(newIsMobile)
       if (newIsMobile) {
-        setCanvasHeight("1000px") // スマホで全要素が収まる高さ
+        setCanvasHeight("90vw") // 正方形にするため90vwに変更
       } else if (window.innerWidth < 1024) {
         setCanvasHeight("750px")
       } else {
@@ -201,7 +201,7 @@ export default function DailySchedule() {
       if (sliceAngle > 0.2) {
         const labelText = slot.isStudy ? `${slot.name}\n${slot.minutes}分` : slot.name
         const lines = labelText.split("\n")
-        const lineHeight = isMobile ? 10 : 16 // スマホ時の行間を狭く
+        const lineHeight = isMobile ? 12 : 16
         const bgPadding = isMobile ? 4 : 6
         const bgWidth = Math.max(...lines.map((line) => ctx.measureText(line).width)) + bgPadding * 3
         const bgHeight = lines.length * lineHeight + bgPadding * 2
@@ -252,8 +252,8 @@ export default function DailySchedule() {
         // テキストを描画 - スマホ時はフォントサイズを調整
         ctx.fillStyle = textColor
         ctx.font = slot.isStudy
-          ? `bold ${isMobile ? "7px" : "11px"} 'Noto Serif JP', serif` // 8pxから7pxに
-          : `${isMobile ? "7px" : "11px"} 'Noto Serif JP', serif` // 8pxから7pxに
+          ? `bold ${isMobile ? "10px" : "11px"} 'Noto Serif JP', serif`
+          : `${isMobile ? "10px" : "11px"} 'Noto Serif JP', serif`
         ctx.textAlign = "center"
         ctx.textBaseline = "middle"
 
@@ -575,12 +575,12 @@ export default function DailySchedule() {
               className="w-[90vw] md:w-full max-w-[90vw] md:max-w-full mx-auto object-contain block"
               style={{
                 height: canvasHeight,
-                maxWidth: "100%",
-                aspectRatio: isMobile ? "1 / 1" : "1 / 1.2", // スマホ時は正方形に
+                maxWidth: isMobile ? "90vw" : "100%",
+                maxHeight: isMobile ? "90vw" : canvasHeight,
+                aspectRatio: isMobile ? "1 / 1" : "1 / 1.2",
                 margin: "0 auto",
                 display: "block",
                 marginBottom: isMobile ? "40px" : "0",
-                maxHeight: isMobile ? "90vw" : "auto", // スマホ時の最大高さ制限
               }}
             />
           </div>
