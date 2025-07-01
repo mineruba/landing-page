@@ -5,28 +5,34 @@ import { useEffect, useRef, useState } from "react"
 export default function DailySchedule() {
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const [canvasHeight, setCanvasHeight] = useState("900px")
-  const [isMobile, setIsMobile] = useState(false) // Declare isMobile variable
+  const [isMobile, setIsMobile] = useState(false)
+  const [isMounted, setIsMounted] = useState(false)
 
   useEffect(() => {
-    const updateHeight = () => {
-      const newIsMobile = window.innerWidth < 768
-      setIsMobile(newIsMobile)
-      if (newIsMobile) {
-        setCanvasHeight("90vw") // 正方形にするため90vwに変更
-      } else if (window.innerWidth < 1024) {
-        setCanvasHeight("750px")
-      } else {
-        setCanvasHeight("900px")
+    if (typeof window !== "undefined") {
+      const updateHeight = () => {
+        const newIsMobile = window.innerWidth < 768
+        setIsMobile(newIsMobile)
+        if (newIsMobile) {
+          setCanvasHeight("90vw")
+        } else if (window.innerWidth < 1024) {
+          setCanvasHeight("750px")
+        } else {
+          setCanvasHeight("900px")
+        }
       }
+
+      updateHeight()
+      setIsMounted(true)
+
+      window.addEventListener("resize", updateHeight)
+      return () => window.removeEventListener("resize", updateHeight)
     }
-
-    updateHeight()
-    window.addEventListener("resize", updateHeight)
-
-    return () => window.removeEventListener("resize", updateHeight)
   }, [])
 
   useEffect(() => {
+    if (!isMounted || typeof window === "undefined") return
+
     const canvas = canvasRef.current
     if (!canvas) return
 
@@ -45,7 +51,7 @@ export default function DailySchedule() {
 
     // 円グラフを描画
     drawPieChart(ctx, rect.width, rect.height)
-  }, [])
+  }, [isMounted, isMobile])
 
   // 円グラフを描画する関数
   const drawPieChart = (ctx: CanvasRenderingContext2D, width: number, height: number) => {
@@ -94,30 +100,12 @@ export default function DailySchedule() {
     ctx.lineWidth = 2
     ctx.stroke()
 
-    // 円グラフのタイトルは削除
-    // ctx.fillStyle = "#ffffff"
-    // ctx.font = "bold 18px 'Noto Serif JP', serif"
-    // ctx.textAlign = "center"
-    // ctx.textBaseline = "middle"
-    // ctx.fillText("1日24時間の使い方", centerX, centerY - radius - 25)
-
     // 総学習時間
     const totalStudyHours = timeSlots.filter((slot) => slot.isStudy).reduce((sum, slot) => sum + slot.hours, 0)
     const totalStudyMinutes = totalStudyHours * 60
 
     // 総学習時間を表示
     const studyTimeText = `学習時間: ${Math.floor(totalStudyHours)}時間${totalStudyMinutes % 60}分`
-
-    // 総学習時間の背景と境界線は削除
-    // const studyTimeWidth = ctx.measureText(studyTimeText).width + 40
-    // const studyTimeHeight = 36
-    // ctx.fillStyle = "rgba(20, 20, 20, 0.8)"
-    // roundRect(ctx, centerX - studyTimeWidth / 2, centerY - radius - 100, studyTimeWidth, studyTimeHeight, 8)
-    // ctx.strokeStyle = "rgba(212, 175, 55, 0.5)"
-    // ctx.lineWidth = 1.5
-    // ctx.beginPath()
-    // roundRectPath(ctx, centerX - studyTimeWidth / 2, centerY - radius - 100, studyTimeWidth, studyTimeHeight, 8)
-    // ctx.stroke()
 
     // 総学習時間のテキスト - グラデーションテキストで直接表示
     const textGradient = ctx.createLinearGradient(
@@ -526,6 +514,47 @@ export default function DailySchedule() {
 
     // 10進数から16進数に戻す
     return `#${r.toString(16).padStart(2, "0")}${g.toString(16).padStart(2, "0")}${b.toString(16).padStart(2, "0")}`
+  }
+
+  // クライアントサイドでマウントされていない場合は何も表示しない
+  if (!isMounted) {
+    return (
+      <section className="py-10 sm:py-16 md:py-20" id="daily-schedule">
+        <div className="container mx-auto px-4">
+          <div className="max-w-3xl mx-auto text-center mb-10 py-4">
+            <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-4 flex flex-col md:flex-row items-center justify-center gap-2">
+              <span className="text-[#D4AF37]">
+                <svg
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="md:w-6 md:h-6"
+                >
+                  <circle cx="12" cy="12" r="11" stroke="#D4AF37" strokeWidth="2" />
+                  <path
+                    d="M7 12L10 15L17 8"
+                    stroke="#D4AF37"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </span>
+              <span className="gold-text-luxe text-center">毎日の学習を継続するためにサポートします</span>
+            </h2>
+            <div className="w-20 h-1 bg-gold-gradient mx-auto mb-8"></div>
+            <p className="text-sm sm:text-base md:text-lg lg:text-xl leading-relaxed">読み込み中...</p>
+          </div>
+          <div className="bg-black/70 backdrop-blur-sm border border-gray-800 rounded-lg p-3 sm:p-4 md:p-6 overflow-hidden max-w-[95vw] md:max-w-5xl mx-auto shadow-lg shadow-black/50 min-h-[900px] md:min-h-0">
+            <div className="flex justify-center items-center min-h-[300px]">
+              <span className="text-gray-500">読み込み中...</span>
+            </div>
+          </div>
+        </div>
+      </section>
+    )
   }
 
   return (

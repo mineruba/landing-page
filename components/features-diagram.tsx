@@ -1,11 +1,29 @@
 "use client"
 
-import { useEffect, useRef } from "react"
+import { useEffect, useRef, useState } from "react"
 
 export default function FeaturesDiagram() {
   const canvasRef = useRef<HTMLCanvasElement>(null)
+  const [isMobile, setIsMobile] = useState(false)
+  const [isMounted, setIsMounted] = useState(false)
 
   useEffect(() => {
+    if (typeof window !== "undefined") {
+      const checkIsMobile = () => {
+        setIsMobile(window.innerWidth < 768)
+      }
+
+      checkIsMobile()
+      setIsMounted(true)
+
+      window.addEventListener("resize", checkIsMobile)
+      return () => window.removeEventListener("resize", checkIsMobile)
+    }
+  }, [])
+
+  useEffect(() => {
+    if (!isMounted || typeof window === "undefined") return
+
     const canvas = canvasRef.current
     if (!canvas) return
 
@@ -27,16 +45,13 @@ export default function FeaturesDiagram() {
 
     // 図解を描画
     drawDiagram(ctx, size, size)
-  }, [])
+  }, [isMounted, isMobile])
 
   // 図解を描画する関数
   const drawDiagram = (ctx: CanvasRenderingContext2D, width: number, height: number) => {
-    // スマホかどうかを判定
-    const isMobile = width < 640
-
     // キャンバス全体のサイズを調整 - スマホ時は中央配置を重視
     const canvasSize = Math.min(width, height)
-    const scaleFactor = isMobile ? 0.7 : 1.0 // 0.85から0.7に変更
+    const scaleFactor = isMobile ? 0.7 : 1.0
 
     // フォントサイズをスマホ用に最適化
     const titleFontSize = isMobile ? "10px" : "18px"
@@ -159,26 +174,27 @@ export default function FeaturesDiagram() {
     ctx.stroke()
   }
 
-  // 角丸の長方形を描画するヘルパー関数
-  function roundRect(
-    ctx: CanvasRenderingContext2D,
-    x: number,
-    y: number,
-    width: number,
-    height: number,
-    radius: number,
-  ) {
-    ctx.beginPath()
-    ctx.moveTo(x + radius, y)
-    ctx.lineTo(x + width - radius, y)
-    ctx.quadraticCurveTo(x + width, y, x + width, y + radius)
-    ctx.lineTo(x + width, y + height - radius)
-    ctx.quadraticCurveTo(x + width, y + height, x + width - radius, y + height)
-    ctx.lineTo(x + radius, y + height)
-    ctx.quadraticCurveTo(x, y + height, x, y + height - radius)
-    ctx.lineTo(x, y + radius)
-    ctx.quadraticCurveTo(x, y, x + radius, y)
-    ctx.closePath()
+  // クライアントサイドでマウントされていない場合は何も表示しない
+  if (!isMounted) {
+    return (
+      <div className="w-full max-w-5xl mx-auto mt-12 mb-8">
+        <div className="bg-black/70 backdrop-blur-sm border border-gray-800 rounded-lg p-4 md:p-6 overflow-hidden shadow-lg shadow-black/50">
+          <h3 className="text-lg sm:text-xl font-bold mb-6 text-center">
+            <span className="gold-text-luxe">Minervaの学習メソッド図解</span>
+          </h3>
+          <div className="flex flex-col lg:flex-row gap-6 lg:gap-8 items-center py-4 md:py-0 min-h-[400px] md:min-h-0">
+            <div className="relative w-full lg:w-1/2 flex justify-center py-4 md:py-0">
+              <div className="w-80 h-80 sm:w-[250px] sm:h-[250px] md:w-full md:h-[400px] lg:h-[500px] mx-auto bg-gray-900 rounded-lg flex items-center justify-center">
+                <span className="text-gray-500">読み込み中...</span>
+              </div>
+            </div>
+            <div className="lg:w-1/2 w-[90%] md:w-full max-w-[90vw] md:max-w-full mx-auto py-4 md:py-0 mt-12 md:mt-0">
+              <div className="text-center text-gray-500">読み込み中...</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    )
   }
 
   return (
